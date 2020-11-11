@@ -1,0 +1,60 @@
+{
+  "cookbookData": [
+    {
+      "id": 1,
+      "source": "./public/cookbook1.png",
+      "title": "Fresh meat",
+      "author": "John Doe",
+      "views": 123
+    },
+    {
+      "id": 2,
+      "source": "./public/cookbook1.png",
+      "title": "Fresh meat",
+      "author": "John Doe",
+      "views": 8525
+    },
+    {
+      "id": 3,
+      "source": "./public/cookbook1.png",
+      "title": "Fresh meat",
+      "author": "John Doe",
+      "views": 24742
+    },
+    {
+      "id": 4,
+      "source": "./public/cookbook1.png",
+      "title": "Fresh meat",
+      "author": "John Doe",
+      "views": 576
+    },
+    {
+      "id": 5,
+      "source": "./public/cookbook1.png",
+      "title": "Fresh meat",
+      "author": "John Doe",
+      "views": 24545
+    },
+    {
+      "id": 6,
+      "source": "./public/cookbook1.png",
+      "title": "Fresh meat",
+      "author": "John Doe",
+      "views": 56346
+    },
+    {
+      "id": 7,
+      "source": "./public/cookbook1.png",
+      "title": "Fresh meat",
+      "author": "John Doe",
+      "views": 2346
+    },
+    {
+      "id": 8,
+      "source": "./public/cookbook1.png",
+      "title": "Fresh meat",
+      "author": "John Doe",
+      "views": 996
+    }
+  ]
+}

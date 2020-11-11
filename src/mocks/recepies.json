@@ -1,0 +1,55 @@
+{
+  "recipesData": [
+    {
+      "id": 1,
+      "title": "Fresh meat with potato1",
+      "author": "John Doe",
+      "views": 1234
+    },
+    {
+      "id": 2,
+      "title": "Fresh meat with potato2",
+      "author": "John Doe",
+      "views": 1234,
+      "source": "./public/recipe1.png"
+    },
+    {
+      "id": 3,
+      "title": "Fresh meat with potato3",
+      "author": "John Doe",
+      "views": 1234
+    },
+    {
+      "id": 4,
+      "title": "Fresh meat with potato4",
+      "author": "John Doe",
+      "views": 1234
+    },
+    {
+      "id": 5,
+      "title": "Fresh meat with potato5",
+      "author": "John Doe",
+      "views": 1234
+    },
+    {
+      "id": 6,
+      "title": "Fresh meat with potato6",
+      "author": "John Doe",
+      "views": 1234
+    },
+    {
+      "id": 7,
+      "title": "Fresh meat with potato7",
+      "author": "John Doe",
+      "views": 1234
+    },
+    {
+      "id": 8,
+      "title": "Fresh meat with potato8",
+      "author": "John Doe",
+      "views": 1234
+    }
+  ],
+
+  "trendingRecipes": [2, 4, 5]
+}
