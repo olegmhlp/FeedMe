@@ -55,8 +55,8 @@ export const styles = StyleSheet.create({
   },
 
   cookbookCard: {
-    width: "45%",
-    height: 210,
+    width: "100%",
+    height: 260,
     // marginRight: 10,
     
     backgroundColor: 'white',
@@ -75,8 +75,8 @@ export const styles = StyleSheet.create({
   },
 
   cookbookImage: {
-    width: 100,
-    height: 100,
+    width: "100%",
+    height: 150,
     borderRadius: 16,
   },
 

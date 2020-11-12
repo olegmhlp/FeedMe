@@ -16,7 +16,6 @@ const Search = () => {
   );
 };
 
-
 const CookbookSmallCard = ({source, title, author, views}) => {
   return (
     <View style={styles.cookbookCard}>
@@ -47,8 +46,9 @@ const CookbookList = () => {
       <Text>Cookbooks</Text>
       <FlatList
         data={cookbookList}
+        showsVerticalScrollIndicator={false}
         // style={{display: 'flex', flexDirection: "row", flexWrap: 'wrap', backgroundColor: 'red' }}
-        
+
         renderItem={({item}) => (
           <CookbookSmallCard
             source={item.source}

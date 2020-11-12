@@ -110,4 +110,41 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: 'white',
   },
+
+  appButtonContainer: {
+    backgroundColor: '#F7B602',
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+  },
+  appButtonText: {
+    fontSize: 18,
+    color: '#000',
+    alignSelf: 'center',
+  },
+  recipesList: {
+    marginTop: 30,
+  },
+
+
+  smallRecipeCard: {
+   width: '100%',
+    height: 210,
+    backgroundColor: 'white',
+    borderRadius: 16,
+    padding: 15,
+    marginBottom: 10,
+    borderColor: '#F0F0F0',
+    borderWidth: 1,
+  },
+
+  smallRecipeImage: {
+    width: '100%',
+    height: 100,
+    borderRadius: 10,
+  },
+
+
+
+
 });

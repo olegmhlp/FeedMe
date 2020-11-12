@@ -1,60 +1,22 @@
 import React, {useState, useEffect} from 'react';
 import {styles} from './HomeScreen.styles';
 import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  ImageBackground,
-  FlatList,
-} from 'react-native';
+  CookbookCard,
+  RecipeCard,
+  RecipeDetails,
+  CookbookDetails,
+  AuthorDetails,
+} from '../components';
+import {View, Text, ScrollView, ImageBackground, FlatList} from 'react-native';
 import {cookbookData} from '../mocks/cookbooks.json';
 import {trendingRecipes, recipesData} from '../mocks/recepies.json';
+import {authors} from '../mocks/authors.json';
+import {createStackNavigator} from '@react-navigation/stack';
 
-const CookbookCard = ({source, title, author, views}) => {
-  return (
-    <View style={styles.cookbookCard}>
-      <View style={styles.viewsContainer}>
-        <Image
-          style={{marginRight: 6, width: 16, height: 12, resizeMode: 'contain'}}
-          source={require('../../public/show.png')}
-        />
-        <Text>{views} views</Text>
-      </View>
-      <Image
-        source={require('../../public/cookbook1.png')}
-        style={styles.cookbookImage}
-      />
-      <Text style={styles.cookbookTitle}>{title}</Text>
-      <Text style={styles.author}>{author}</Text>
-    </View>
-  );
-};
-
-const RecipeCard = ({source, title, author, views}) => {
-  return (
-    <View style={styles.recipeCard}>
-      <View style={styles.viewsContainer}>
-        <Image
-          style={{marginRight: 6, width: 16, height: 12, resizeMode: 'contain'}}
-          source={require('../../public/show.png')}
-        />
-        <Text>{views} views</Text>
-      </View>
-      <Image
-        source={require('../../public/recipe1.png')}
-        style={styles.recipeImage}
-      />
-      <Text style={styles.cookbookTitle}>{title}</Text>
-      <Text style={styles.author}>{author}</Text>
-    </View>
-  );
-};
-
-const HomeScreen = () => {
-
+const Home = ({navigation}) => {
   const [cookbooksList, setCookbooksList] = useState([]);
   const [trendRecipesList, setTrendRecipesList] = useState([]);
+  const [authorsList, setAuthorsList] = useState(authors);
 
   useEffect(() => {
     const mostPopularCookBooks = cookbookData
@@ -66,8 +28,14 @@ const HomeScreen = () => {
     );
     setCookbooksList(mostPopularCookBooks);
     setTrendRecipesList(getTrendRecipesData);
+    setAuthorsList(authorsList);
   }, []);
-  
+
+  const openCookbook = (id, author) =>
+    navigation.navigate('CookbookDetails', {id: id, author: author});
+  const openRecipe = (id, author) =>
+    navigation.navigate('RecipeDetails', {id: id, author: author});
+
   return (
     <ScrollView
       style={styles.mainContainer}
@@ -78,14 +46,19 @@ const HomeScreen = () => {
           showsHorizontalScrollIndicator={false}
           horizontal
           data={cookbooksList}
-          renderItem={({item}) => (
-            <CookbookCard
-              source={item.source}
-              title={item.title}
-              author={item.author}
-              views={item.views}
-            />
-          )}
+          renderItem={({item}) => {
+            const findAuthor = authorsList.find((i) => i.id === item.author);
+            return (
+              <CookbookCard
+                openCookbook={openCookbook}
+                id={item.id}
+                source={item.source}
+                title={item.title}
+                author={findAuthor}
+                views={item.views}
+              />
+            );
+          }}
           keyExtractor={(item, index) => `${item.id}`}
         />
       </View>
@@ -127,9 +100,11 @@ const HomeScreen = () => {
           data={trendRecipesList}
           renderItem={({item}) => (
             <RecipeCard
+              openRecipe={openRecipe}
+              id={item.id}
               source={item.source}
               title={item.title}
-              author={item.author}
+              author={authorsList.find((i) => i.id === item.author)}
               views={item.views}
             />
           )}
@@ -139,5 +114,32 @@ const HomeScreen = () => {
     </ScrollView>
   );
 };
+
+const HomeNav = createStackNavigator();
+
+const HomeScreen = () => (
+  <HomeNav.Navigator>
+    <HomeNav.Screen
+      options={{headerShown: false}}
+      name="MainPage"
+      component={Home}
+    />
+    <HomeNav.Screen
+      name="CookbookDetails"
+      component={CookbookDetails}
+      options={{title: 'Return'}}
+    />
+    <HomeNav.Screen
+      name="RecipeDetails"
+      component={RecipeDetails}
+      options={{title: 'Return'}}
+    />
+    <HomeNav.Screen
+      name="AuthorDetails"
+      component={AuthorDetails}
+      options={{title: 'Return'}}
+    />
+  </HomeNav.Navigator>
+);
 
 export default HomeScreen;
