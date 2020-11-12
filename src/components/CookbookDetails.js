@@ -26,8 +26,9 @@ export const CookbookDetails = ({route, navigation}) => {
     getCookbook && setCookData(getCookbook);
   }, []);
 
-  const openRecipe = (id) => navigation.navigate('RecipeDetails', {id: id});
-  const openAuthor = (id) => navigation.navigate('AuthorDetails', {id: id})
+  const openRecipe = (id) =>
+    navigation.navigate('RecipeDetails', {id: id, author: author});
+  const openAuthor = (id) => navigation.navigate('AuthorDetails', {id: id});
 
   const {title, views, description} = cookData;
   return (

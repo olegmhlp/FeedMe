@@ -4,29 +4,25 @@
       "id": 1,
       "name": "John Doe",
       "email": "test@test.test",
-      "description": "I don’t know about you but I love pizza. Especially when that pizza comes with Papa John’s very own garlic pizza sticks.",
-      "recipes": [1, 2, 3]
+      "description": "I don’t know about you but I love pizza. Especially when that pizza comes with Papa John’s very own garlic pizza sticks."
     },
     {
       "id": 2,
       "name": "Lara Croft",
       "email": "test@test.test",
-      "description": "I don’t know about you but I love pizza. Especially when that pizza comes with Papa John’s very own garlic pizza sticks.",
-      "recipes": [4, 5]
+      "description": "I don’t know about you but I love pizza. Especially when that pizza comes with Papa John’s very own garlic pizza sticks."
     },
     {
       "id": 3,
       "name": "Vasya Ked",
       "email": "test@test.test",
-      "description": "I don’t know about you but I love pizza. Especially when that pizza comes with Papa John’s very own garlic pizza sticks.",
-      "recipes": [6, 7]
+      "description": "I don’t know about you but I love pizza. Especially when that pizza comes with Papa John’s very own garlic pizza sticks."
     },
     {
       "id": 4,
       "name": "Den Kek",
       "email": "test@test.test",
-      "description": "I don’t know about you but I love pizza. Especially when that pizza comes with Papa John’s very own garlic pizza sticks.",
-      "recipes": [8]
+      "description": "I don’t know about you but I love pizza. Especially when that pizza comes with Papa John’s very own garlic pizza sticks."
     }
   ]
 }

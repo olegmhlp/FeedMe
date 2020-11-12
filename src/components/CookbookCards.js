@@ -31,3 +31,34 @@ export const CookbookCard = ({
     </TouchableOpacity>
   );
 };
+
+
+
+export const SmallCookbookCard = ({
+  openCookbook,
+  id,
+  source,
+  title,
+  author,
+  views,
+}) => {
+  return (
+    <TouchableOpacity
+      style={styles.smallRecipeCard}
+      onPress={() => openCookbook(id)}>
+      <View style={styles.viewsContainer}>
+        <Image
+          style={{marginRight: 6, width: 16, height: 12, resizeMode: 'contain'}}
+          source={require('../../public/show.png')}
+        />
+        <Text>{views} views</Text>
+      </View>
+      <Image
+        source={require('../../public/picked1.png')}
+        style={styles.smallRecipeImage}
+      />
+      <Text style={styles.cookbookTitle}>{title}</Text>
+      <Text style={styles.author}>{author.name}</Text>
+    </TouchableOpacity>
+  );
+};
