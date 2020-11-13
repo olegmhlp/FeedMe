@@ -126,14 +126,14 @@ export const styles = StyleSheet.create({
     marginTop: 30,
   },
 
-
   smallRecipeCard: {
-   width: '100%',
+    width: '48%',
     height: 210,
     backgroundColor: 'white',
     borderRadius: 16,
     padding: 15,
     marginBottom: 10,
+    marginRight: 10,
     borderColor: '#F0F0F0',
     borderWidth: 1,
   },
@@ -144,7 +144,10 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-
-
-
+  selectedText: {
+    color: 'black',
+    textDecorationLine: 'underline',
+    textDecorationStyle: 'solid',
+    textDecorationColor: '#F7B602',
+  },
 });

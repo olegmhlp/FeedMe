@@ -3,7 +3,7 @@
     {
       "id": 1,
       "source": "./public/cookbook1.png",
-      "title": "Fresh meat",
+      "title": "Very fresh meat",
       "author": 1,
       "views": 123,
       "recipes": [1, 2, 3],
@@ -12,7 +12,7 @@
     {
       "id": 2,
       "source": "./public/cookbook1.png",
-      "title": "Fresh meat",
+      "title": "So fresh meat",
       "author": 2,
       "views": 8525,
       "recipes": [2, 4],
@@ -21,7 +21,7 @@
     {
       "id": 3,
       "source": "./public/cookbook1.png",
-      "title": "Fresh meat",
+      "title": "Vet meat",
       "author": 3,
       "views": 24742,
       "recipes": [5, 6],
@@ -30,7 +30,7 @@
     {
       "id": 4,
       "source": "./public/cookbook1.png",
-      "title": "Fresh meat",
+      "title": "Fresh meat4",
       "author": 4,
       "views": 576,
       "recipes": [4, 5, 6, 7, 8],
@@ -39,7 +39,7 @@
     {
       "id": 5,
       "source": "./public/cookbook1.png",
-      "title": "Fresh meat",
+      "title": "Fresh meat5",
       "author": 2,
       "views": 24545,
       "recipes": [4, 7, 2],
@@ -48,7 +48,7 @@
     {
       "id": 6,
       "source": "./public/cookbook1.png",
-      "title": "Fresh meat",
+      "title": "Fresh meat6",
       "author": 4,
       "views": 56346,
       "recipes": [1, 5, 8, 3],
@@ -57,7 +57,7 @@
     {
       "id": 7,
       "source": "./public/cookbook1.png",
-      "title": "Fresh meat",
+      "title": "Fresh meat7",
       "author": 1,
       "views": 2346,
       "recipes": [5, 6, 7, 2],
@@ -66,7 +66,7 @@
     {
       "id": 8,
       "source": "./public/cookbook1.png",
-      "title": "Fresh meat",
+      "title": "Fresh meat8",
       "author": 3,
       "views": 996,
       "recipes": [1, 2, 3],

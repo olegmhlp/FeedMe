@@ -121,23 +121,24 @@ const HomeScreen = () => (
   <HomeNav.Navigator>
     <HomeNav.Screen
       options={{headerShown: false}}
+      
       name="MainPage"
       component={Home}
     />
     <HomeNav.Screen
       name="CookbookDetails"
       component={CookbookDetails}
-      options={{title: 'Return'}}
+      options={{headerShown: false}}
     />
     <HomeNav.Screen
       name="RecipeDetails"
       component={RecipeDetails}
-      options={{title: 'Return'}}
+      options={{headerShown: false}}
     />
     <HomeNav.Screen
       name="AuthorDetails"
       component={AuthorDetails}
-      options={{title: 'Return'}}
+      options={{headerShown: false}}
     />
   </HomeNav.Navigator>
 );

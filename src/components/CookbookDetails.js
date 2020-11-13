@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {View} from 'react-native';
+import {Button, View} from 'react-native';
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   TouchableOpacity,
   Image,
@@ -27,12 +29,32 @@ export const CookbookDetails = ({route, navigation}) => {
   }, []);
 
   const openRecipe = (id) =>
-    navigation.navigate('RecipeDetails', {id: id, author: author});
-  const openAuthor = (id) => navigation.navigate('AuthorDetails', {id: id});
+    navigation.push('RecipeDetails', {id: id, author: author});
+  const openAuthor = (id) => navigation.push('AuthorDetails', {id: id});
 
   const {title, views, description} = cookData;
   return (
     <ScrollView style={(styles.mainContainer, {padding: 20})}>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: 15,
+        }}>
+        <Ionicons name="arrow-back" size={24} color="#393939" />
+        <Text
+          style={{
+            fontSize: 24,
+            marginLeft: 10,
+            marginBottom: 3,
+            color: '#393939',
+          }}>
+          Back
+        </Text>
+      </TouchableOpacity>
+
       <Text style={{fontSize: 40, fontWeight: 'bold'}}>{title}</Text>
       <TouchableOpacity
         onPress={() => openAuthor(author.id)}
@@ -92,6 +114,7 @@ export const CookbookDetails = ({route, navigation}) => {
         <Text style={styles.sectionHeader}>Recipes</Text>
         <FlatList
           data={recipesList}
+          numColumns={2}
           renderItem={({item}) => (
             <SmallRecipeCard
               openRecipe={openRecipe}

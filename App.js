@@ -10,9 +10,10 @@ import Profile from './src/screens/Profile';
 const Tab = createBottomTabNavigator();
 
 function App() {
+  console.disableYellowBox = true;
   return (
     <NavigationContainer>
-      <Tab.Navigator
+      <Tab.Navigator   
         screenOptions={({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
             let iconName;
@@ -34,11 +35,12 @@ function App() {
             );
           },
         })}
-        tabBarOptions={{
+        tabBarOptions={{          
+          keyboardHidesTabBar: false,
           activeTintColor: '#FDB900',
           labelStyle: {fontSize: 15, paddingBottom: 4, fontWeight: '600'},
           inactiveTintColor: 'gray',
-          style: {height: 50},
+          style: {height: 50, position: "absolute"},
         }}>
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Search" component={SearchStackNavigator} />

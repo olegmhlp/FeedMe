@@ -37,7 +37,7 @@ export const SmallRecipeCard = ({
   return (
     <TouchableOpacity
       style={styles.smallRecipeCard}
-      onPress={() => openRecipe(id)}>
+      onPress={() => openRecipe(id, author)}>
       <View style={styles.viewsContainer}>
         <Image
           style={{marginRight: 6, width: 16, height: 12, resizeMode: 'contain'}}

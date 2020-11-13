@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {TouchableOpacity, Image, Text, ScrollView} from 'react-native';
 import {styles} from '../screens/HomeScreen.styles';
 
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {recipesData} from '../mocks/recepies.json';
 
 export const RecipeDetails = ({route, navigation}) => {
@@ -14,20 +15,35 @@ export const RecipeDetails = ({route, navigation}) => {
     getRecipe && setRecipesList(getRecipe);
   }, []);
 
-  const {
-    title,
-    views,
-    description,
-    directions,
-    ingredients,
-  } = recipesList;
+  const {title, views, description, directions, ingredients} = recipesList;
 
-  const openAuthor = (id) => navigation.navigate('AuthorDetails', {id: id})
+  const openAuthor = (id) => navigation.navigate('AuthorDetails', {id: id});
 
   return (
     <ScrollView style={(styles.mainContainer, {padding: 20})}>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: 15,
+        }}>
+        <Ionicons name="arrow-back" size={24} color="#393939" />
+        <Text
+          style={{
+            fontSize: 24,
+            marginLeft: 10,
+            marginBottom: 3,
+            color: '#393939',
+          }}>
+          Back
+        </Text>
+      </TouchableOpacity>
       <Text style={{fontSize: 40, fontWeight: 'bold'}}>{title}</Text>
-      <TouchableOpacity onPress={() => openAuthor(author.id)} style={{ marginBottom: 15, marginTop: 15}}>
+      <TouchableOpacity
+        onPress={() => openAuthor(author.id)}
+        style={{marginBottom: 15, marginTop: 15}}>
         <View
           style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
           <Image
@@ -38,7 +54,7 @@ export const RecipeDetails = ({route, navigation}) => {
             style={{
               fontSize: 21,
               color: '#F7B602',
-              fontWeight: '600',             
+              fontWeight: '600',
             }}>
             {author.name}
           </Text>

@@ -11,30 +11,48 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 36,
     lineHeight: 36,
-    marginBottom: 15,
+    paddingTop: 20,
+    paddingBottom: 10,
   },
 
   search: {
-    borderRadius: 40,
-    height: 48,
-    width: "100%",
-    backgroundColor: "#EEEEEE",
+    marginBottom: 20,
+    borderRadius: 10,
+    borderColor: '#F0F0F0',
+    borderWidth: 1,
+    height: 54,
+    width: '100%',
+    backgroundColor: '#fff',
     fontSize: 16,
-    paddingLeft: 16
+    paddingLeft: 16,
   },
 
-  searchContainer: {
-    padding: 20,
-    paddingTop: 40,
-    backgroundColor: '#FCFAF8',
+  fullSearch: {
+    backgroundColor: '#fff',
+    fontSize: 16,
+    paddingLeft: 10,
+    flex: 1,
+    paddingTop: 15,
+    paddingRight: 20,
+    paddingBottom: 15,
   },
 
 
+  
 
+  sectionHeader: {
+    fontWeight: 'bold',
+    fontSize: 28,
+    lineHeight: 36,
+    marginBottom: 15,
+  },
 
-
-
-
+  selectedText: {
+    color: 'black',
+    textDecorationLine: 'underline',
+    textDecorationStyle: 'solid',
+    textDecorationColor: '#F7B602',
+  },
 
   recipeCard: {
     width: 300,
@@ -55,10 +73,10 @@ export const styles = StyleSheet.create({
   },
 
   cookbookCard: {
-    width: "100%",
+    width: '100%',
     height: 260,
     // marginRight: 10,
-    
+
     backgroundColor: 'white',
     borderRadius: 16,
     padding: 15,
@@ -75,7 +93,7 @@ export const styles = StyleSheet.create({
   },
 
   cookbookImage: {
-    width: "100%",
+    width: '100%',
     height: 150,
     borderRadius: 16,
   },
