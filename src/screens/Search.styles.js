@@ -37,9 +37,6 @@ export const styles = StyleSheet.create({
     paddingBottom: 15,
   },
 
-
-  
-
   sectionHeader: {
     fontWeight: 'bold',
     fontSize: 28,
@@ -86,7 +83,6 @@ export const styles = StyleSheet.create({
   },
 
   viewsContainer: {
-    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 5,
@@ -110,7 +106,6 @@ export const styles = StyleSheet.create({
   },
 
   pickedByUsContainer: {
-    display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     flex: 1,

@@ -19,7 +19,7 @@ import {cookbookData} from '../mocks/cookbooks.json';
 
 import {authors} from '../mocks/authors.json';
 import {styles} from './Search.styles';
-import { CookbookDetails } from '../components/CookbookDetails';
+import {CookbookDetails} from '../components/CookbookDetails';
 
 const Search = ({navigation}) => {
   const [recipesList, setRecipesList] = useState(recipesData);
@@ -28,13 +28,15 @@ const Search = ({navigation}) => {
   const [selectedSection, setSelectedSection] = useState(1);
 
   const openRecipe = (id) => navigation.navigate('RecipeDetails', {id: id});
-  const openCookbook = (id, author) => navigation.navigate('CookbookDetails', {id: id, author: author});
+  const openCookbook = (id, author) =>
+    navigation.navigate('CookbookDetails', {id: id, author: author});
 
   return (
     <ScrollView
       stickyHeaderIndices={[1]}
       showsVerticalScrollIndicator={false}
-      style={{padding: 20, backgroundColor: '#FCFAF8'}}>
+      style={{marginBottom: 20, marginTop: 20, backgroundColor: '#FCFAF8'}}
+      contentContainerStyle={{flexGrow: 1, paddingLeft: 20, paddingRight: 20}}>
       <Text style={styles.screenHeader}>Search</Text>
       <TextInput
         style={styles.search}
@@ -43,7 +45,7 @@ const Search = ({navigation}) => {
       />
 
       <View style={{marginBottom: 30}}>
-        <View style={{display: 'flex', flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row'}}>
           <Text
             style={[
               styles.sectionHeader,
@@ -118,9 +120,9 @@ const FullScreenSearch = ({root, navigation}) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState(cookbookData);
 
+  const openCookbook = (id, author) =>
+    navigation.navigate('CookbookDetails', {id: id, author: author});
 
-  const openCookbook = (id, author) => navigation.navigate('CookbookDetails', {id: id, author: author});
-  
   const searchingFunction = (inputValue) => {
     const upperValue = inputValue?.toUpperCase();
     const filterData = masterDataSource.filter((i) => {
@@ -203,7 +205,7 @@ function SearchStackNavigator() {
         component={FullScreenSearch}
         options={{headerShown: false}}
       />
-        <SearchStack.Screen
+      <SearchStack.Screen
         name="CookbookDetails"
         component={CookbookDetails}
         options={{headerShown: false}}

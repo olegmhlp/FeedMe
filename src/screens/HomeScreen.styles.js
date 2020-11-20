@@ -2,7 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   mainContainer: {
-    paddingTop: 20,
+    marginTop: 20,
+    marginBottom: 55,
     backgroundColor: '#FCFAF8',
   },
 
@@ -44,7 +45,6 @@ export const styles = StyleSheet.create({
   },
 
   viewsContainer: {
-    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 5,
@@ -68,7 +68,6 @@ export const styles = StyleSheet.create({
   },
 
   pickedByUsContainer: {
-    display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     flex: 1,

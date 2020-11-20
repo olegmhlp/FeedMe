@@ -20,11 +20,12 @@ export const RecipeDetails = ({route, navigation}) => {
   const openAuthor = (id) => navigation.navigate('AuthorDetails', {id: id});
 
   return (
-    <ScrollView style={(styles.mainContainer, {padding: 20})}>
+    <ScrollView
+      style={styles.mainContainer}
+      contentContainerStyle={{flexGrow: 1, paddingLeft: 20, paddingRight: 20}}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={{
-          display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
           marginBottom: 15,
@@ -44,8 +45,7 @@ export const RecipeDetails = ({route, navigation}) => {
       <TouchableOpacity
         onPress={() => openAuthor(author.id)}
         style={{marginBottom: 15, marginTop: 15}}>
-        <View
-          style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
             source={require('../../public/avatar.png')}
             style={{width: 33, height: 33, marginRight: 5}}

@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Button, View} from 'react-native';
+import FastImage from 'react-native-fast-image'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
@@ -16,6 +17,7 @@ import {recipesData} from '../mocks/recepies.json';
 import {SmallRecipeCard} from './RecipesCards';
 
 export const CookbookDetails = ({route, navigation}) => {
+  const [context, setContext] = useContext(null);
   const {id, author} = route.params;
   const [cookData, setCookData] = useState({});
   const [recipesList, setRecipesList] = useState({});
@@ -34,11 +36,12 @@ export const CookbookDetails = ({route, navigation}) => {
 
   const {title, views, description} = cookData;
   return (
-    <ScrollView style={(styles.mainContainer, {padding: 20})}>
+    <ScrollView
+      style={styles.mainContainer}
+      contentContainerStyle={{paddingLeft: 20, paddingRight: 20, flexGrow: 1}}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={{
-          display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
           marginBottom: 15,
@@ -59,9 +62,8 @@ export const CookbookDetails = ({route, navigation}) => {
       <TouchableOpacity
         onPress={() => openAuthor(author.id)}
         style={{marginBottom: 15, marginTop: 15}}>
-        <View
-          style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-          <Image
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <FastImage
             source={require('../../public/avatar.png')}
             style={{width: 30, height: 30, marginRight: 8}}
           />
@@ -75,7 +77,7 @@ export const CookbookDetails = ({route, navigation}) => {
           </Text>
         </View>
       </TouchableOpacity>
-      <Image
+      <FastImage
         source={require('../../public/picked1.png')}
         style={{width: '100%', height: 300, borderRadius: 8}}
       />
@@ -94,7 +96,7 @@ export const CookbookDetails = ({route, navigation}) => {
         </Text>
       </View>
       <View style={[styles.viewsContainer, {marginTop: 15, marginBottom: 30}]}>
-        <Image
+        <FastImage
           style={{
             marginRight: 10,
             width: 22,
@@ -106,7 +108,9 @@ export const CookbookDetails = ({route, navigation}) => {
         <Text style={{fontSize: 16}}>{views} views</Text>
       </View>
 
-      <TouchableOpacity onPress={() => null} style={styles.appButtonContainer}>
+      <TouchableOpacity
+        onPress={() => setContext([...context, id])}
+        style={styles.appButtonContainer}>
         <Text style={styles.appButtonText}>Add to my Cookbooks</Text>
       </TouchableOpacity>
 

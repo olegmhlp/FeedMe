@@ -37,8 +37,7 @@ export const AuthorDetails = ({route, navigation}) => {
     <ScrollView style={(styles.mainContainer, {padding: 20})}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        style={{
-          display: 'flex',
+        style={{       
           flexDirection: 'row',
           alignItems: 'center',
           marginBottom: 25,
@@ -56,7 +55,6 @@ export const AuthorDetails = ({route, navigation}) => {
       </TouchableOpacity>
       <View
         style={{
-          display: 'flex',
           flexDirection: 'row',
           justifyContent: 'flex-start',
           alignItems: 'center',
@@ -68,7 +66,6 @@ export const AuthorDetails = ({route, navigation}) => {
         />
         <View
           style={{
-            display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-start',
             justifyContent: 'space-between',
@@ -100,7 +97,7 @@ export const AuthorDetails = ({route, navigation}) => {
         {description}
       </Text>
       <View style={styles.recipesList}>
-        <View style={{display: 'flex', flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row'}}>
           <Text
             style={[
               styles.sectionHeader,

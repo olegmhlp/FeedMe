@@ -2,8 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   mainContainer: {
-    padding: 20,
-    paddingTop: 40,
+    marginTop: 20,
+    marginBottom: 40,
     backgroundColor: '#FCFAF8',
   },
 
@@ -15,24 +15,48 @@ export const styles = StyleSheet.create({
   },
 
   search: {
-    borderRadius: 40,
-    height: 48,
-    width: "100%",
-    backgroundColor: "#EEEEEE",
+    borderRadius: 10,
+    height: 52,
+    width: '100%',
+    backgroundColor: '#EEEEEE',
     fontSize: 16,
-    paddingLeft: 16
+    paddingLeft: 16,
+    marginBottom: 20,
   },
 
   searchContainer: {
-    marginBottom: 40
+    marginBottom: 40,
   },
 
+  appButtonContainer: {
+    backgroundColor: '#F7B602',
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+  },
 
+  appButtonContainerOutlined: {
+    borderColor: '#F7B602',
+    borderRadius: 10,
+    borderWidth: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+  },
 
+  appButtonText: {
+    fontSize: 18,
+    color: '#000',
+    alignSelf: 'center',
+  },
 
-
-
-
+  logOutButton: {
+    marginTop: 50,
+    borderColor: '#F7B602',
+    borderRadius: 10,
+    borderWidth: 1,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
 
   recipeCard: {
     width: 300,
@@ -65,7 +89,6 @@ export const styles = StyleSheet.create({
   },
 
   viewsContainer: {
-    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 5,
@@ -89,7 +112,6 @@ export const styles = StyleSheet.create({
   },
 
   pickedByUsContainer: {
-    display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     flex: 1,

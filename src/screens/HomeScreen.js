@@ -39,6 +39,7 @@ const Home = ({navigation}) => {
   return (
     <ScrollView
       style={styles.mainContainer}
+      contentContainerStyle={{flexGrow: 1}}
       showsVerticalScrollIndicator={false}>
       <View style={{padding: 20, marginBottom: 5}}>
         <Text style={styles.sectionHeader}>Most Popular Cookbooks</Text>
@@ -92,7 +93,7 @@ const Home = ({navigation}) => {
           </View>
         </View>
       </View>
-      <View style={{backgroundColor: '#F7B602', padding: 20, marginBottom: 20}}>
+      <View style={{backgroundColor: '#F7B602', padding: 20}}>
         <Text style={styles.sectionHeader}>Trending recipes</Text>
         <FlatList
           showsHorizontalScrollIndicator={false}
@@ -121,7 +122,6 @@ const HomeScreen = () => (
   <HomeNav.Navigator>
     <HomeNav.Screen
       options={{headerShown: false}}
-      
       name="MainPage"
       component={Home}
     />
