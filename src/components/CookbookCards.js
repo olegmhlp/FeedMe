@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {TouchableOpacity, Image, Text} from 'react-native';
-import {styles} from '../screens/HomeScreen.styles';
+import {styles} from '../screens/HomeScreen/HomeScreen.styles';
 import FastImage from 'react-native-fast-image'
 
 
@@ -20,12 +20,12 @@ export const CookbookCard = ({
       <View style={styles.viewsContainer}>
         <FastImage
           style={{marginRight: 6, width: 16, height: 12, resizeMode: 'contain'}}
-          source={require('../../public/show.png')}
+          source={require('../assets/show.png')}
         />
         <Text>{views} views</Text>
       </View>
       <FastImage
-        source={require('../../public/cookbook1.png')}
+        source={require('../assets/cookbook1.png')}
         style={styles.cookbookImage}
       />
       <Text style={styles.cookbookTitle}>{title}</Text>
@@ -51,12 +51,12 @@ export const SmallCookbookCard = ({
       <View style={styles.viewsContainer}>
         <FastImage
           style={{marginRight: 6, width: 16, height: 12, resizeMode: 'contain'}}
-          source={require('../../public/show.png')}
+          source={require('../assets/show.png')}
         />
         <Text>{views} views</Text>
       </View>
       <FastImage
-        source={require('../../public/picked1.png')}
+        source={require('../assets/picked1.png')}
         style={styles.smallRecipeImage}
       />
       <Text style={styles.cookbookTitle}>{title}</Text>

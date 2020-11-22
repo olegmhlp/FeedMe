@@ -1,11 +1,13 @@
 import React, {memo} from 'react';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import HomeScreen from '../screens/HomeScreen';
-import SearchStackNavigator from '../screens/Search';
-import Profile from '../screens/ProfileScreen';
+import HomeScreen from '../screens/HomeScreen/HomeScreen';
+import SearchStackNavigator from '../screens/SearchScreen/Search';
+import Profile from '../screens/ProfileScreen/ProfileScreen';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import AuthNavigator from './AuthNavigator';
+import HomeScreenNavigator from './HomeScreenNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,8 +41,8 @@ export default memo(() => (
       inactiveTintColor: 'gray',
       style: {height: 50, position: 'absolute'},
     }}>
-    <Tab.Screen name="Home" component={HomeScreen} />
+    <Tab.Screen name="Home" component={HomeScreenNavigator} />
     <Tab.Screen name="Search" component={SearchStackNavigator} />
-    <Tab.Screen name="Profile" component={Profile} />
+    <Tab.Screen name="Profile" component={AuthNavigator} />
   </Tab.Navigator>
 ));

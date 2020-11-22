@@ -11,15 +11,15 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import {SmallCookbookCard} from '../components/CookbookCards';
-import {SmallRecipeCard} from '../components/RecipesCards';
+import {SmallCookbookCard} from '../../components/CookbookCards';
+import {SmallRecipeCard} from '../../components/RecipesCards';
 
-import {recipesData} from '../mocks/recepies.json';
-import {cookbookData} from '../mocks/cookbooks.json';
+import {recipesData} from '../../mocks/recepies.json';
+import {cookbookData} from '../../mocks/cookbooks.json';
 
-import {authors} from '../mocks/authors.json';
+import {authors} from '../../mocks/authors.json';
 import {styles} from './Search.styles';
-import {CookbookDetails} from '../components/CookbookDetails';
+import {CookbookDetails} from '../../components/CookbookDetails';
 
 const Search = ({navigation}) => {
   const [recipesList, setRecipesList] = useState(recipesData);
@@ -80,11 +80,15 @@ const Search = ({navigation}) => {
 };
 
 const CookbooksList = ({cookbooksList, openCookbook, authorsList}) => (
-  <FlatList
-    data={cookbooksList}
-    numColumns={2}
-    renderItem={({item}) => (
+  <View
+    style={{
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+    }}>
+    {cookbooksList.map((item) => (
       <SmallCookbookCard
+        key={item.id}
         openCookbook={openCookbook}
         id={item.id}
         source={item.source}
@@ -92,17 +96,20 @@ const CookbooksList = ({cookbooksList, openCookbook, authorsList}) => (
         author={authorsList.find((i) => i.id === item.author)}
         views={item.views}
       />
-    )}
-    keyExtractor={(item, index) => `${item.id}`}
-  />
+    ))}
+  </View>
 );
 
 const RecipesList = ({recipesList, openRecipe}) => (
-  <FlatList
-    data={recipesList}
-    numColumns={2}
-    renderItem={({item}) => (
+  <View
+    style={{
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+    }}>
+    {recipesList.map((item) => (
       <SmallRecipeCard
+        key={item.id}
         openRecipe={openRecipe}
         id={item.id}
         source={item.source}
@@ -110,9 +117,8 @@ const RecipesList = ({recipesList, openRecipe}) => (
         author={item.author}
         views={item.views}
       />
-    )}
-    keyExtractor={(item, index) => `${item.id}`}
-  />
+    ))}
+  </View>
 );
 
 const FullScreenSearch = ({root, navigation}) => {

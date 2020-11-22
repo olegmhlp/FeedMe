@@ -5,8 +5,6 @@ import {AppRegistry, LogBox} from 'react-native';
 import RootNavigator from './navigators/RootNavigator';
 
 function App() {
-  console.disableYellowBox = true;
-
   return (
     <NavigationContainer>
       <RootNavigator />

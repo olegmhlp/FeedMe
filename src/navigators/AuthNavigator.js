@@ -1,7 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import ProfileNavigator from './ProfileNavigator';
+import AuthScreenWrapper from './AuthScreenWrapper';
+import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 
 const Stack = createStackNavigator();
 
@@ -19,7 +20,7 @@ const AuthNavigator = () => {
   return (
     <Stack.Navigator headerMode="none">
       {hasToken ? (
-        <Stack.Screen name="ProfileNavigator" component={ProfileNavigator} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
       ) : (
         <Stack.Screen name="AuthScreenWrapper" component={AuthScreenWrapper} />
       )}

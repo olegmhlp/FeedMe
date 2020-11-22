@@ -3,11 +3,9 @@ import {createSwitchNavigator} from 'react-navigation';
 import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, ScrollView, Button, Image} from 'react-native';
 import {styles} from './Profile.styles';
-import {authors} from '../mocks/authors.json';
+import {authors, cookbookData} from '../../mocks';
 import AsyncStorage from '@react-native-community/async-storage';
 import {FlatList, TouchableNativeFeedback} from 'react-native-gesture-handler';
-
-import {cookbookData} from '../mocks/cookbooks.json';
 
 const ProfileScreen = ({navigation}) => {
   const [userDetails, setUserDetails] = useState({});
@@ -36,7 +34,7 @@ const ProfileScreen = ({navigation}) => {
   const logOut = async () => {
     await AsyncStorage.removeItem('@userId');
     await AsyncStorage.removeItem('@auth_token');
-    navigation.navigate('Login');
+    navigation.navigate('AuthScreenWrapper');
   };
 
   const {name, email, description} = userDetails;
@@ -56,7 +54,7 @@ const ProfileScreen = ({navigation}) => {
           marginBottom: 20,
         }}>
         <Image
-          source={require('../../public/avatar.png')}
+          source={require('../../assets/avatar.png')}
           style={{width: 100, height: 100}}
         />
         <View

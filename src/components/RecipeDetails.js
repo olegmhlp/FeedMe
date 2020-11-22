@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {TouchableOpacity, Image, Text, ScrollView} from 'react-native';
-import {styles} from '../screens/HomeScreen.styles';
+import {styles} from '../screens/HomeScreen/HomeScreen.styles';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {recipesData} from '../mocks/recepies.json';
@@ -47,7 +47,7 @@ export const RecipeDetails = ({route, navigation}) => {
         style={{marginBottom: 15, marginTop: 15}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
-            source={require('../../public/avatar.png')}
+            source={require('../assets/avatar.png')}
             style={{width: 33, height: 33, marginRight: 5}}
           />
           <Text
@@ -61,7 +61,7 @@ export const RecipeDetails = ({route, navigation}) => {
         </View>
       </TouchableOpacity>
       <Image
-        source={require('../../public/recipe1.png')}
+        source={require('../assets/recipe1.png')}
         style={{width: '100%', height: 300, borderRadius: 8}}
       />
       <View>
@@ -86,7 +86,7 @@ export const RecipeDetails = ({route, navigation}) => {
             height: 16,
             resizeMode: 'contain',
           }}
-          source={require('../../public/show.png')}
+          source={require('../assets/show.png')}
         />
         <Text style={{fontSize: 16}}>{views} views</Text>
       </View>
@@ -106,6 +106,7 @@ export const RecipeDetails = ({route, navigation}) => {
             directions.length !== 0 &&
             directions.map((i, index) => (
               <Text
+              key={index}
                 style={{
                   fontSize: 16,
                   lineHeight: 24,
@@ -133,6 +134,7 @@ export const RecipeDetails = ({route, navigation}) => {
             ingredients.length !== 0 &&
             ingredients.map((i, index) => (
               <Text
+              key={index}
                 style={{
                   fontSize: 16,
                   lineHeight: 24,

@@ -1,19 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {styles} from './HomeScreen.styles';
-import {
-  CookbookCard,
-  RecipeCard,
-  RecipeDetails,
-  CookbookDetails,
-  AuthorDetails,
-} from '../components';
+import {CookbookCard, RecipeCard} from '../../components';
 import {View, Text, ScrollView, ImageBackground, FlatList} from 'react-native';
-import {cookbookData} from '../mocks/cookbooks.json';
-import {trendingRecipes, recipesData} from '../mocks/recepies.json';
-import {authors} from '../mocks/authors.json';
-import {createStackNavigator} from '@react-navigation/stack';
+import {cookbookData, trendingRecipes, recipesData, authors} from '../../mocks';
 
-const Home = ({navigation}) => {
+const HomeScreen = ({navigation}) => {
   const [cookbooksList, setCookbooksList] = useState([]);
   const [trendRecipesList, setTrendRecipesList] = useState([]);
   const [authorsList, setAuthorsList] = useState(authors);
@@ -35,7 +26,7 @@ const Home = ({navigation}) => {
     navigation.navigate('CookbookDetails', {id: id, author: author});
   const openRecipe = (id, author) =>
     navigation.navigate('RecipeDetails', {id: id, author: author});
-
+console.log("____________CONNECTED_____");
   return (
     <ScrollView
       style={styles.mainContainer}
@@ -69,7 +60,7 @@ const Home = ({navigation}) => {
         <View style={styles.pickedByUsContainer}>
           <View style={styles.largePicked}>
             <ImageBackground
-              source={require('../../public/picked1.png')}
+              source={require('../../assets/picked1.png')}
               style={{width: '100%', height: 200, justifyContent: 'flex-end'}}
               imageStyle={{borderRadius: 16}}>
               <Text style={styles.insideText}>Its all about pancakes</Text>
@@ -77,7 +68,7 @@ const Home = ({navigation}) => {
           </View>
           <View style={[styles.midPicked, {marginRight: 15}]}>
             <ImageBackground
-              source={require('../../public/picked2.png')}
+              source={require('../../assets/picked2.png')}
               style={{width: '100%', height: 150, justifyContent: 'flex-end'}}
               imageStyle={{borderRadius: 16}}>
               <Text style={styles.insideSmallText}>Fast breakfast</Text>
@@ -85,7 +76,7 @@ const Home = ({navigation}) => {
           </View>
           <View style={styles.midPicked}>
             <ImageBackground
-              source={require('../../public/picked3.png')}
+              source={require('../../assets/picked3.png')}
               style={{width: '100%', height: 150, justifyContent: 'flex-end'}}
               imageStyle={{borderRadius: 16}}>
               <Text style={styles.insideSmallText}>Fruits and vegetables</Text>
@@ -115,32 +106,5 @@ const Home = ({navigation}) => {
     </ScrollView>
   );
 };
-
-const HomeNav = createStackNavigator();
-
-const HomeScreen = () => (
-  <HomeNav.Navigator>
-    <HomeNav.Screen
-      options={{headerShown: false}}
-      name="MainPage"
-      component={Home}
-    />
-    <HomeNav.Screen
-      name="CookbookDetails"
-      component={CookbookDetails}
-      options={{headerShown: false}}
-    />
-    <HomeNav.Screen
-      name="RecipeDetails"
-      component={RecipeDetails}
-      options={{headerShown: false}}
-    />
-    <HomeNav.Screen
-      name="AuthorDetails"
-      component={AuthorDetails}
-      options={{headerShown: false}}
-    />
-  </HomeNav.Navigator>
-);
 
 export default HomeScreen;

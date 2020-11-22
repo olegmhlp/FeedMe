@@ -84,7 +84,6 @@ export const styles = StyleSheet.create({
   midPicked: {
     flex: 2,
     height: 150,
-    backgroundColor: 'green',
     borderRadius: 16,
   },
 
@@ -122,7 +121,9 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   recipesList: {
-    marginTop: 30,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
   },
 
   smallRecipeCard: {
@@ -131,8 +132,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 16,
     padding: 15,
-    marginBottom: 10,
-    marginRight: 10,
+    marginBottom: 15,
     borderColor: '#F0F0F0',
     borderWidth: 1,
   },

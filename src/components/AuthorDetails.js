@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, ScrollView, FlatList} from 'react-native';
 import {TouchableOpacity, Image, Text} from 'react-native';
-import {styles} from '../screens/HomeScreen.styles';
+import {styles} from '../screens/HomeScreen/HomeScreen.styles';
 import {authors} from '../mocks/authors.json';
 import {recipesData} from '../mocks/recepies.json';
 import {cookbookData} from '../mocks/cookbooks.json';
@@ -61,7 +61,7 @@ export const AuthorDetails = ({route, navigation}) => {
           marginBottom: 20,
         }}>
         <Image
-          source={require('../../public/avatar.png')}
+          source={require('../assets/avatar.png')}
           style={{width: 100, height: 100}}
         />
         <View

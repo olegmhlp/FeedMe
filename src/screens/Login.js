@@ -4,7 +4,7 @@ import {TouchableNativeFeedback} from 'react-native-gesture-handler';
 import {login} from '../mocks/api';
 
 import {setToken} from '../mocks/token';
-import {styles} from './Profile.styles';
+import {styles} from './ProfileScreen/Profile.styles';
 
 const LoginScreen = ({navigation}) => {
   const [errorMessage, setErrorMessage] = useState('');

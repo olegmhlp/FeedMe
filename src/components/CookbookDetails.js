@@ -1,26 +1,18 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {Button, View} from 'react-native';
-import FastImage from 'react-native-fast-image'
+import React, {useState, useEffect} from 'react';
+import {View} from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {
-  TouchableOpacity,
-  Image,
-  Text,
-  ScrollView,
-  FlatList,
-} from 'react-native';
-import {styles} from '../screens/HomeScreen.styles';
+import {TouchableOpacity, Text, ScrollView} from 'react-native';
+import {styles} from '../screens/HomeScreen/HomeScreen.styles';
 
-import {cookbookData} from '../mocks/cookbooks.json';
-import {recipesData} from '../mocks/recepies.json';
+import {cookbookData, recipesData} from '../mocks';
 import {SmallRecipeCard} from './RecipesCards';
 
 export const CookbookDetails = ({route, navigation}) => {
-  const [context, setContext] = useContext(null);
   const {id, author} = route.params;
   const [cookData, setCookData] = useState({});
-  const [recipesList, setRecipesList] = useState({});
+  const [recipesList, setRecipesList] = useState([]);
   useEffect(() => {
     const getCookbook = cookbookData.find((item) => item.id === id);
     const getRecipesList = recipesData.filter((item) =>
@@ -64,7 +56,7 @@ export const CookbookDetails = ({route, navigation}) => {
         style={{marginBottom: 15, marginTop: 15}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <FastImage
-            source={require('../../public/avatar.png')}
+            source={require('../assets/avatar.png')}
             style={{width: 30, height: 30, marginRight: 8}}
           />
           <Text
@@ -78,7 +70,7 @@ export const CookbookDetails = ({route, navigation}) => {
         </View>
       </TouchableOpacity>
       <FastImage
-        source={require('../../public/picked1.png')}
+        source={require('../assets/picked1.png')}
         style={{width: '100%', height: 300, borderRadius: 8}}
       />
       <View>
@@ -101,26 +93,22 @@ export const CookbookDetails = ({route, navigation}) => {
             marginRight: 10,
             width: 22,
             height: 16,
-            resizeMode: 'contain',
           }}
-          source={require('../../public/show.png')}
+          source={require('../assets/show.png')}
         />
         <Text style={{fontSize: 16}}>{views} views</Text>
       </View>
 
-      <TouchableOpacity
-        onPress={() => setContext([...context, id])}
-        style={styles.appButtonContainer}>
+      <TouchableOpacity onPress={null} style={styles.appButtonContainer}>
         <Text style={styles.appButtonText}>Add to my Cookbooks</Text>
       </TouchableOpacity>
 
+      <Text style={[styles.sectionHeader, {marginTop: 30}]}>Recipes</Text>
       <View style={styles.recipesList}>
-        <Text style={styles.sectionHeader}>Recipes</Text>
-        <FlatList
-          data={recipesList}
-          numColumns={2}
-          renderItem={({item}) => (
+        {recipesList.map((item) => {
+          return (
             <SmallRecipeCard
+            key={item.id}
               openRecipe={openRecipe}
               id={item.id}
               source={item.source}
@@ -128,9 +116,8 @@ export const CookbookDetails = ({route, navigation}) => {
               author={item.author}
               views={item.views}
             />
-          )}
-          keyExtractor={(item, index) => `${item.id}`}
-        />
+          );
+        })}
       </View>
     </ScrollView>
   );
