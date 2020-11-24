@@ -6,13 +6,25 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {TouchableOpacity, Text, ScrollView} from 'react-native';
 import {styles} from '../screens/HomeScreen/HomeScreen.styles';
 
-import {cookbookData, recipesData} from '../mocks';
+import {recipesData} from '../mocks';
 import {SmallRecipeCard} from './RecipesCards';
+import {useSelector, useDispatch} from 'react-redux';
+import {toggleSave} from '../store/actions/cookbooks';
 
 export const CookbookDetails = ({route, navigation}) => {
   const {id, author} = route.params;
   const [cookData, setCookData] = useState({});
   const [recipesList, setRecipesList] = useState([]);
+  const cookbookData = useSelector((state) => state.cookbooksStore.cookbooks);
+  const isCookbookSaved = useSelector((state) =>
+    state.cookbooksStore.savedCookbooks.some((book) => book.id === id),
+  );
+
+  const dispatch = useDispatch();
+
+  const toggleSaveHandler = () => {
+    dispatch(toggleSave(id));
+  };
   useEffect(() => {
     const getCookbook = cookbookData.find((item) => item.id === id);
     const getRecipesList = recipesData.filter((item) =>
@@ -99,8 +111,16 @@ export const CookbookDetails = ({route, navigation}) => {
         <Text style={{fontSize: 16}}>{views} views</Text>
       </View>
 
-      <TouchableOpacity onPress={null} style={styles.appButtonContainer}>
-        <Text style={styles.appButtonText}>Add to my Cookbooks</Text>
+      <TouchableOpacity
+        onPress={toggleSaveHandler}
+        style={
+          isCookbookSaved
+            ? styles.appOutlinedButtonContainer
+            : styles.appButtonContainer
+        }>
+        <Text style={styles.appButtonText}>
+          {isCookbookSaved ? 'Remove from saved' : 'Add to my cookbooks'}
+        </Text>
       </TouchableOpacity>
 
       <Text style={[styles.sectionHeader, {marginTop: 30}]}>Recipes</Text>
@@ -108,7 +128,7 @@ export const CookbookDetails = ({route, navigation}) => {
         {recipesList.map((item) => {
           return (
             <SmallRecipeCard
-            key={item.id}
+              key={item.id}
               openRecipe={openRecipe}
               id={item.id}
               source={item.source}

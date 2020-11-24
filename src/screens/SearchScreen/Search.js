@@ -1,12 +1,13 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
+import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   View,
   Text,
   ScrollView,
-  Image,
   FlatList,
   TextInput,
   TouchableOpacity,
@@ -14,17 +15,17 @@ import {
 import {SmallCookbookCard} from '../../components/CookbookCards';
 import {SmallRecipeCard} from '../../components/RecipesCards';
 
-import {recipesData} from '../../mocks/recepies.json';
-import {cookbookData} from '../../mocks/cookbooks.json';
-
-import {authors} from '../../mocks/authors.json';
+import {recipesData, authors} from '../../mocks';
 import {styles} from './Search.styles';
 import {CookbookDetails} from '../../components/CookbookDetails';
+import {clearSearch, setSearch} from '../../store/actions/cookbooks';
 
 const Search = ({navigation}) => {
   const [recipesList, setRecipesList] = useState(recipesData);
-  const [cookbooksList, setCookbooksList] = useState(cookbookData);
   const [authorsList, setAuthorsList] = useState(authors);
+
+  const cookbookData = useSelector((state) => state.cookbooksStore.cookbooks);
+
   const [selectedSection, setSelectedSection] = useState(1);
 
   const openRecipe = (id) => navigation.navigate('RecipeDetails', {id: id});
@@ -67,7 +68,7 @@ const Search = ({navigation}) => {
         </View>
         {selectedSection === 1 ? (
           <CookbooksList
-            cookbooksList={cookbooksList}
+            cookbooksList={cookbookData}
             openCookbook={openCookbook}
             authorsList={authorsList}
           />
@@ -123,25 +124,30 @@ const RecipesList = ({recipesList, openRecipe}) => (
 
 const FullScreenSearch = ({root, navigation}) => {
   const [value, setValue] = useState('');
-  const [filteredDataSource, setFilteredDataSource] = useState([]);
-  const [masterDataSource, setMasterDataSource] = useState(cookbookData);
+
+  const searchData = useSelector(
+    (state) => state.cookbooksStore.foundCookbooks,
+  );
+
+  const dispatch = useDispatch();
 
   const openCookbook = (id, author) =>
     navigation.navigate('CookbookDetails', {id: id, author: author});
 
   const searchingFunction = (inputValue) => {
-    const upperValue = inputValue?.toUpperCase();
-    const filterData = masterDataSource.filter((i) => {
-      if (i.title.toUpperCase().startsWith(upperValue)) return i;
-    });
-
-    filterData.length && setFilteredDataSource(filterData);
     setValue(inputValue);
+    const upperValue = inputValue.trim().toUpperCase();
+    upperValue ? dispatch(setSearch(upperValue)) : dispatch(clearSearch());
   };
 
   const clearInput = () => {
-    setFilteredDataSource([]);
+    dispatch(clearSearch());
     setValue('');
+  };
+
+  const goBackAndClear = () => {
+    clearInput();
+    navigation.goBack();
   };
 
   return (
@@ -158,40 +164,42 @@ const FullScreenSearch = ({root, navigation}) => {
           borderBottomColor: '#F0F0F0',
           borderBottomWidth: 1,
         }}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{paddingLeft: 20}}>
+        <TouchableOpacity onPress={goBackAndClear} style={{paddingLeft: 20}}>
           <Ionicons name="arrow-back" size={20} color="#393939" />
         </TouchableOpacity>
         <TextInput
           autoFocus
           style={styles.fullSearch}
           placeholder="Cookbooks or Recipes"
-          onFocus={() => navigation.navigate('FullScreenSearch')}
-          onChangeText={(text) => searchingFunction(text)}
+          onChangeText={searchingFunction}
           value={value}
         />
-        <TouchableOpacity
-          onPress={() => clearInput()}
-          style={{paddingRight: 20}}>
+        <TouchableOpacity onPress={clearInput} style={{paddingRight: 20}}>
           <Ionicons name="close-outline" size={30} color="#393939" />
         </TouchableOpacity>
       </View>
-      <FlatList
-        style={{padding: 20}}
-        numColumns={2}
-        data={filteredDataSource}
-        renderItem={({item}) => (
-          <SmallCookbookCard
-            openCookbook={openCookbook}
-            id={item.id}
-            source={item.source}
-            title={item.title}
-            author={item.author}
-            views={item.views}
-          />
-        )}
-      />
+      <View
+        style={{
+          padding: 20,
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+        }}>
+        {searchData &&
+          searchData.length !== 0 &&
+          searchData.map((item) => {
+            return (
+              <SmallCookbookCard
+                openCookbook={openCookbook}
+                id={item.id}
+                source={item.source}
+                title={item.title}
+                author={item.author}
+                views={item.views}
+              />
+            );
+          })}
+      </View>
     </ScrollView>
   );
 };

@@ -50,13 +50,22 @@ export const styles = StyleSheet.create({
   },
 
   logOutButton: {
-    marginTop: 50,
     borderColor: '#F7B602',
     borderRadius: 10,
     borderWidth: 1,
     paddingVertical: 8,
     paddingHorizontal: 12,
   },
+
+  createButton: {
+    borderColor: '#F7B602',
+    backgroundColor: '#F7B602',
+    borderRadius: 10,
+    borderWidth: 1,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
+
 
   recipeCard: {
     width: 300,

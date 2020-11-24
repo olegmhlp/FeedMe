@@ -19,11 +19,13 @@ const AuthNavigator = () => {
 
   return (
     <Stack.Navigator headerMode="none">
-      {hasToken ? (
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+   
+      {/* {hasToken ? (
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
       ) : (
         <Stack.Screen name="AuthScreenWrapper" component={AuthScreenWrapper} />
-      )}
+      )} */}
     </Stack.Navigator>
   );
 };

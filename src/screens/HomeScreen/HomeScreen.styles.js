@@ -112,9 +112,20 @@ export const styles = StyleSheet.create({
   appButtonContainer: {
     backgroundColor: '#F7B602',
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#F7B602',
     paddingVertical: 12,
     paddingHorizontal: 12,
   },
+
+  appOutlinedButtonContainer: {
+    borderColor: '#F7B602',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+  },
+
   appButtonText: {
     fontSize: 18,
     color: '#000',
@@ -127,7 +138,7 @@ export const styles = StyleSheet.create({
   },
 
   smallRecipeCard: {
-    width: '48%',
+    minWidth: '48%',
     height: 210,
     backgroundColor: 'white',
     borderRadius: 16,

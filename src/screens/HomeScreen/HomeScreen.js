@@ -2,22 +2,22 @@ import React, {useState, useEffect} from 'react';
 import {styles} from './HomeScreen.styles';
 import {CookbookCard, RecipeCard} from '../../components';
 import {View, Text, ScrollView, ImageBackground, FlatList} from 'react-native';
-import {cookbookData, trendingRecipes, recipesData, authors} from '../../mocks';
+import {trendingRecipes, recipesData, authors} from '../../mocks';
+import {useSelector} from 'react-redux';
 
 const HomeScreen = ({navigation}) => {
-  const [cookbooksList, setCookbooksList] = useState([]);
   const [trendRecipesList, setTrendRecipesList] = useState([]);
   const [authorsList, setAuthorsList] = useState(authors);
 
-  useEffect(() => {
-    const mostPopularCookBooks = cookbookData
-      .sort((a, b) => b.views - a.views)
-      .slice(0, 5);
+  const popularCookbooks = useSelector(
+    (state) => state.cookbooksStore.mostPopularCookbooks,
+  );
 
+  useEffect(() => {
     const getTrendRecipesData = recipesData.filter((item) =>
       trendingRecipes.find((i) => i === item.id),
     );
-    setCookbooksList(mostPopularCookBooks);
+
     setTrendRecipesList(getTrendRecipesData);
     setAuthorsList(authorsList);
   }, []);
@@ -26,7 +26,6 @@ const HomeScreen = ({navigation}) => {
     navigation.navigate('CookbookDetails', {id: id, author: author});
   const openRecipe = (id, author) =>
     navigation.navigate('RecipeDetails', {id: id, author: author});
-console.log("____________CONNECTED_____");
   return (
     <ScrollView
       style={styles.mainContainer}
@@ -37,7 +36,7 @@ console.log("____________CONNECTED_____");
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal
-          data={cookbooksList}
+          data={popularCookbooks}
           renderItem={({item}) => {
             const findAuthor = authorsList.find((i) => i.id === item.author);
             return (

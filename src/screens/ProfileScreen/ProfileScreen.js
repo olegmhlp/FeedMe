@@ -1,16 +1,22 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import {createSwitchNavigator} from 'react-navigation';
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, ScrollView, Button, Image} from 'react-native';
+import {View, Text, ScrollView, Button, Image, Modal} from 'react-native';
 import {styles} from './Profile.styles';
-import {authors, cookbookData} from '../../mocks';
+import {authors} from '../../mocks';
 import AsyncStorage from '@react-native-community/async-storage';
 import {FlatList, TouchableNativeFeedback} from 'react-native-gesture-handler';
+import {useSelector} from 'react-redux';
+import {SmallCookbookCard} from '../../components/CookbookCards';
+import CreateCookbookForm from '../../components/CreateCookbookForm';
+import { set } from 'react-native-reanimated';
 
 const ProfileScreen = ({navigation}) => {
   const [userDetails, setUserDetails] = useState({});
-
-  const [savedBooks, setSavedBooks] = useState([]);
+  const [isShown, setIsShow] = useState(false);
+  const savedBooks = useSelector(
+    (state) => state.cookbooksStore.savedCookbooks,
+  );
 
   useEffect(() => {
     const fetchId = async () => {
@@ -21,15 +27,18 @@ const ProfileScreen = ({navigation}) => {
       }
     };
 
-    if ([].length) {
-      const getBooks = cookbookData.filter((book) =>
-        [].find((i) => i === book.id),
-      );
-      getBooks.length && setSavedBooks([...savedBooks, ...getBooks]);
-    }
-
     fetchId();
   }, []);
+
+  const createBook = () => {
+    setIsShow(true);
+  };
+
+  const onCancel = () => {
+    setIsShow(false)
+  }
+
+  const onSubmit = () => {}
 
   const logOut = async () => {
     await AsyncStorage.removeItem('@userId');
@@ -90,19 +99,38 @@ const ProfileScreen = ({navigation}) => {
         {description}
       </Text>
 
-      {savedBooks.length === 0 ? (
+      {!savedBooks || savedBooks.length === 0 ? (
         <Text>You have no saved cookbooks</Text>
       ) : (
         <FlatList
           data={savedBooks}
-          renderItem={({item}) => <Text>{item.title}</Text>}
+          style={{flexDirection: 'row', flexWrap: 'wrap'}}
+          renderItem={({item}) => (
+            <SmallCookbookCard
+              openCookbook={null}
+              id={item.id}
+              title={item.title}
+              author={item.author}
+              views={item.views}
+            />
+          )}
         />
       )}
-      <TouchableNativeFeedback
-        onPress={() => logOut()}
-        style={styles.logOutButton}>
-        <Text style={styles.appButtonText}>Log out</Text>
-      </TouchableNativeFeedback>
+      <Modal visible={isShown} animationType="fade">
+        <CreateCookbookForm onCancel={onCancel}/>
+      </Modal>
+      <View style={{marginTop: 20}}>
+        <TouchableNativeFeedback
+          onPress={createBook}
+          style={styles.createButton}>
+          <Text style={styles.appButtonText}>Create new cookbook</Text>
+        </TouchableNativeFeedback>
+      </View>
+      <View style={{position: 'absolute', bottom: 30, left: 20, right: 20}}>
+        <TouchableNativeFeedback onPress={logOut} style={styles.logOutButton}>
+          <Text style={styles.appButtonText}>Log out</Text>
+        </TouchableNativeFeedback>
+      </View>
     </ScrollView>
   );
 };
