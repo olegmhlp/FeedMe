@@ -8,6 +8,8 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
+import { useDispatch } from 'react-redux';
+import {createCookbook} from '../store/actions/cookbooks';
 
 const REDUCER_CREATE = 'CREATE';
 
@@ -37,6 +39,9 @@ const formReducer = (state, action) => {
 };
 
 const CreateCookbookForm = (props) => {
+
+  const dispatch = useDispatch();
+  
   const [formState, dispatchReducer] = useReducer(formReducer, {
     inputValues: {
       title: '',
@@ -67,7 +72,10 @@ const CreateCookbookForm = (props) => {
   const submitHandler = () => {
     if (!formState.formIsValid) {
       Alert.alert('Wrong input!', 'Damn, you so stupid!', [{text: 'Okay('}]);
-    } else props.onCancel()
+    } else {
+      props.onCancel();
+      dispatch(createCookbook(formState.inputValues))
+    }
   };
 
   return (

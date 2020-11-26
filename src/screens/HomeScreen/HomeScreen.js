@@ -1,33 +1,85 @@
 import React, {useState, useEffect} from 'react';
 import {styles} from './HomeScreen.styles';
 import {CookbookCard, RecipeCard} from '../../components';
-import {View, Text, ScrollView, ImageBackground, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  ImageBackground,
+  FlatList,
+  ActivityIndicator,
+  RefreshControl,
+  Button,
+} from 'react-native';
 import {trendingRecipes, recipesData, authors} from '../../mocks';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {fetchProducts} from '../../store/actions/cookbooks';
 
 const HomeScreen = ({navigation}) => {
   const [trendRecipesList, setTrendRecipesList] = useState([]);
   const [authorsList, setAuthorsList] = useState(authors);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   const popularCookbooks = useSelector(
     (state) => state.cookbooksStore.mostPopularCookbooks,
   );
+  const dispatch = useDispatch();
+
+  const loadCookbooks = async () => {
+    setIsLoading(true);
+    try {
+      await dispatch(fetchProducts());
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
+  };
 
   useEffect(() => {
     const getTrendRecipesData = recipesData.filter((item) =>
       trendingRecipes.find((i) => i === item.id),
     );
-
+    loadCookbooks();
     setTrendRecipesList(getTrendRecipesData);
     setAuthorsList(authorsList);
-  }, []);
+  }, [dispatch, setIsLoading, setError]);
 
   const openCookbook = (id, author) =>
     navigation.navigate('CookbookDetails', {id: id, author: author});
   const openRecipe = (id, author) =>
     navigation.navigate('RecipeDetails', {id: id, author: author});
+
+  if (error) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>An error occurred</Text>
+        <Button title='Try again' onPress={loadCookbooks}/>
+      </View>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" color="#F7B602" />
+      </View>
+    );
+  }
+
+  if (!isLoading && popularCookbooks.length === 0) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>No cookbooks found</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView
+      refreshControl={
+        <RefreshControl onRefresh={loadCookbooks} refreshing={isLoading} />
+      }
       style={styles.mainContainer}
       contentContainerStyle={{flexGrow: 1}}
       showsVerticalScrollIndicator={false}>

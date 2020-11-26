@@ -1,55 +1,49 @@
-import {createStackNavigator} from '@react-navigation/stack';
-import {createSwitchNavigator} from 'react-navigation';
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, ScrollView, Button, Image, Modal} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Button,
+  Image,
+  Modal,
+  RefreshControl,
+} from 'react-native';
 import {styles} from './Profile.styles';
 import {authors} from '../../mocks';
 import AsyncStorage from '@react-native-community/async-storage';
 import {FlatList, TouchableNativeFeedback} from 'react-native-gesture-handler';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {SmallCookbookCard} from '../../components/CookbookCards';
 import CreateCookbookForm from '../../components/CreateCookbookForm';
-import { set } from 'react-native-reanimated';
+import {logout} from '../../store/actions/auth';
 
 const ProfileScreen = ({navigation}) => {
-  const [userDetails, setUserDetails] = useState({});
   const [isShown, setIsShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const savedBooks = useSelector(
     (state) => state.cookbooksStore.savedCookbooks,
   );
+  const userDetails = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    const fetchId = async () => {
-      const id = await AsyncStorage.getItem('@userId');
-      if (id) {
-        const findUser = authors.find((i) => i.id === +id);
-        findUser && setUserDetails(findUser);
-      }
-    };
-
-    fetchId();
-  }, []);
+  const update = () => {
+    setIsLoading(true);
+    setIsLoading(false);
+  };
 
   const createBook = () => {
     setIsShow(true);
   };
 
   const onCancel = () => {
-    setIsShow(false)
-  }
-
-  const onSubmit = () => {}
-
-  const logOut = async () => {
-    await AsyncStorage.removeItem('@userId');
-    await AsyncStorage.removeItem('@auth_token');
-    navigation.navigate('AuthScreenWrapper');
+    setIsShow(false);
   };
 
-  const {name, email, description} = userDetails;
-
+  const dispatch = useDispatch();
   return (
     <ScrollView
+      refreshControl={
+        <RefreshControl onRefresh={update} refreshing={isLoading} />
+      }
       style={styles.mainContainer}
       contentContainerStyle={{paddingLeft: 20, paddingRight: 20, flexGrow: 1}}>
       <View style={styles.searchContainer}>
@@ -79,25 +73,17 @@ const ProfileScreen = ({navigation}) => {
               fontWeight: 'bold',
               color: '#000',
             }}>
-            {name}
+            {userDetails.userName}
           </Text>
           <Text
             style={{
               fontSize: 16,
               color: '#000',
             }}>
-            {email}
+            {userDetails.userEmail}
           </Text>
         </View>
       </View>
-      <Text
-        style={{
-          fontSize: 16,
-          lineHeight: 21,
-          color: '#787878',
-        }}>
-        {description}
-      </Text>
 
       {!savedBooks || savedBooks.length === 0 ? (
         <Text>You have no saved cookbooks</Text>
@@ -117,7 +103,7 @@ const ProfileScreen = ({navigation}) => {
         />
       )}
       <Modal visible={isShown} animationType="fade">
-        <CreateCookbookForm onCancel={onCancel}/>
+        <CreateCookbookForm onCancel={onCancel} />
       </Modal>
       <View style={{marginTop: 20}}>
         <TouchableNativeFeedback
@@ -127,7 +113,12 @@ const ProfileScreen = ({navigation}) => {
         </TouchableNativeFeedback>
       </View>
       <View style={{position: 'absolute', bottom: 30, left: 20, right: 20}}>
-        <TouchableNativeFeedback onPress={logOut} style={styles.logOutButton}>
+        <TouchableNativeFeedback
+          onPress={() => {
+            dispatch(logout);
+            navigation.navigate('LoginScreen');
+          }}
+          style={styles.logOutButton}>
           <Text style={styles.appButtonText}>Log out</Text>
         </TouchableNativeFeedback>
       </View>

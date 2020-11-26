@@ -8,7 +8,7 @@ const HomeNav = createStackNavigator();
 
 const HomeScreenNavigator = () => (
   <HomeNav.Navigator>
-    <HomeNav.Screen
+    <HomeNav.Screen    
       options={{headerShown: false}}
       name="MainPage"
       component={HomeScreen}

@@ -1,31 +1,53 @@
-import React, {useState} from 'react';
-import {View, Text, Button, TextInput} from 'react-native';
-import {TouchableNativeFeedback} from 'react-native-gesture-handler';
-import {login} from '../mocks/api';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
+import {TextInput, TouchableNativeFeedback} from 'react-native-gesture-handler';
+import {login} from '../store/actions/auth';
+import {useDispatch} from 'react-redux';
 
-import {setToken} from '../mocks/token';
 import {styles} from './ProfileScreen/Profile.styles';
 
 const LoginScreen = ({navigation}) => {
-  const [errorMessage, setErrorMessage] = useState('');
+  const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [credentials, setCredentials] = useState({
-    email: null,
-    password: null,
+    email: '',
+    password: '',
   });
-  const loginUser = () => {
-    const {email, password} = credentials;
-    email &&
-      password &&
-      login(email, password)
-        .then(async (res) => {
-          await setToken(res.auth_token, res.id);
-          setCredentials({
-            email: null,
-            password: null,
-          });
-          navigation.navigate('ProfileScreen');
-        })
-        .catch((err) => setErrorMessage(err.message));
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert('An Error Occurred!', error, [{text: 'Okay'}]);
+    }
+  }, [error]);
+
+  const authHandler = async () => {
+    if (!credentials.email || !credentials.password) {
+      return;
+    }
+
+    setError(null);
+    try {
+      setIsLoading(true);
+      await dispatch(login(credentials.email, credentials.password));
+      setIsLoading(false);
+      navigation.navigate('ProfileScreen');
+    } catch (err) {
+      setError(err.message);
+      setIsLoading(false);
+    }
+  };
+
+  const inputChangeHandler = (name, value) => {
+    setCredentials({
+      ...credentials,
+      [name]: value,
+    });
   };
 
   return (
@@ -43,23 +65,29 @@ const LoginScreen = ({navigation}) => {
 
       <TextInput
         style={styles.search}
-        value={credentials.email}
-        onChangeText={(input) => setCredentials({...credentials, email: input})}
+        keyboardType="email-address"
+        autoCapitalize="none"
+        onChangeText={inputChangeHandler.bind(this, 'email')}
         placeholder="Email"
+        value={credentials.email}
       />
       <TextInput
-        style={[styles.search, {marginTop: 10}]}
+        style={styles.search}
+        secureTextEntry={true}
+        autoCapitalize="none"
+        onChangeText={inputChangeHandler.bind(this, 'password')}
         value={credentials.password}
-        onChangeText={(input) =>
-          setCredentials({...credentials, password: input})
-        }
         placeholder="Password"
       />
-      <TouchableNativeFeedback
-        onPress={loginUser}
-        style={[styles.appButtonContainer]}>
-        <Text style={styles.appButtonText}>Log in</Text>
-      </TouchableNativeFeedback>
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#F7B602" />
+      ) : (
+        <TouchableNativeFeedback
+          onPress={authHandler}
+          style={[styles.appButtonContainer]}>
+          <Text style={styles.appButtonText}>Login</Text>
+        </TouchableNativeFeedback>
+      )}
 
       <Text
         style={{
@@ -70,12 +98,12 @@ const LoginScreen = ({navigation}) => {
         }}>
         or
       </Text>
+
       <TouchableNativeFeedback
         onPress={() => navigation.navigate('CreateAccount')}
         style={styles.appButtonContainerOutlined}>
-        <Text style={styles.appButtonText}>Create account</Text>
+        <Text style={styles.appButtonText}>Create new account</Text>
       </TouchableNativeFeedback>
-      {errorMessage ? <Text>{errorMessage}</Text> : null}
     </View>
   );
 };
