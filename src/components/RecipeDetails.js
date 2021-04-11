@@ -1,19 +1,19 @@
 import React, {useState, useEffect} from 'react';
-import {View} from 'react-native';
-import {TouchableOpacity, Image, Text, ScrollView} from 'react-native';
+import {View, TouchableOpacity, Image, Text, ScrollView} from 'react-native';
 import {styles} from '../screens/HomeScreen/HomeScreen.styles';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {recipesData} from '../mocks/recepies.json';
+import {useSelector} from 'react-redux';
 
 export const RecipeDetails = ({route, navigation}) => {
   const {id, author} = route.params;
   const [recipesList, setRecipesList] = useState({});
 
+  const recipesData = useSelector((state) => state.recipesStore.recipes);
   useEffect(() => {
     const getRecipe = recipesData.find((item) => item.id === id);
     getRecipe && setRecipesList(getRecipe);
-  }, []);
+  }, [id]);
 
   const {title, views, description, directions, ingredients} = recipesList;
 
@@ -106,7 +106,7 @@ export const RecipeDetails = ({route, navigation}) => {
             directions.length !== 0 &&
             directions.map((i, index) => (
               <Text
-              key={index}
+                key={index}
                 style={{
                   fontSize: 16,
                   lineHeight: 24,
@@ -134,7 +134,7 @@ export const RecipeDetails = ({route, navigation}) => {
             ingredients.length !== 0 &&
             ingredients.map((i, index) => (
               <Text
-              key={index}
+                key={index}
                 style={{
                   fontSize: 16,
                   lineHeight: 24,

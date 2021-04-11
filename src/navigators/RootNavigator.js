@@ -1,10 +1,6 @@
 import React, {memo} from 'react';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import SearchStackNavigator from '../screens/SearchScreen/Search';
-import Profile from '../screens/ProfileScreen/ProfileScreen';
-
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AuthNavigator from './AuthNavigator';
 import HomeScreenNavigator from './HomeScreenNavigator';

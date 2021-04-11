@@ -1,10 +1,10 @@
 class Cookbook {
-  constructor(id, title, author, views, repices, description) {
+  constructor(id, title, author, views, recipes, description) {
     this.id = id;
     this.title = title;
     this.author = author;
     this.views = views;
-    this.repices = repices;
+    this.recipes = recipes;
     this.description = description;
   }
 }

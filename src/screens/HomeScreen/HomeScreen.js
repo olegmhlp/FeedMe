@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {styles} from './HomeScreen.styles';
 import {CookbookCard, RecipeCard} from '../../components';
 import {
@@ -11,39 +11,43 @@ import {
   RefreshControl,
   Button,
 } from 'react-native';
-import {trendingRecipes, recipesData, authors} from '../../mocks';
+import {authors} from '../../mocks';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchProducts} from '../../store/actions/cookbooks';
+import {fetchRecipes} from '../../store/actions/recipes';
+import {fetchAuthors} from '../../store/actions/authors';
 
 const HomeScreen = ({navigation}) => {
-  const [trendRecipesList, setTrendRecipesList] = useState([]);
-  const [authorsList, setAuthorsList] = useState(authors);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
 
   const popularCookbooks = useSelector(
     (state) => state.cookbooksStore.mostPopularCookbooks,
   );
+
+  const trendingRecipes = useSelector(
+    (state) => state.recipesStore.trendingRecipes,
+  );
+
+  const authorsList = useSelector((state) => state.authorsStore.authors);
+
   const dispatch = useDispatch();
 
-  const loadCookbooks = async () => {
+  const loadCookbooks = useCallback(async () => {
     setIsLoading(true);
     try {
-      await dispatch(fetchProducts());
+      dispatch(fetchProducts());
+      dispatch(fetchRecipes());
+      dispatch(fetchAuthors());
     } catch (error) {
       setError(error.message);
     }
     setIsLoading(false);
-  };
+  }, [dispatch]);
 
   useEffect(() => {
-    const getTrendRecipesData = recipesData.filter((item) =>
-      trendingRecipes.find((i) => i === item.id),
-    );
     loadCookbooks();
-    setTrendRecipesList(getTrendRecipesData);
-    setAuthorsList(authorsList);
-  }, [dispatch, setIsLoading, setError]);
+  }, []);
 
   const openCookbook = (id, author) =>
     navigation.navigate('CookbookDetails', {id: id, author: author});
@@ -54,7 +58,7 @@ const HomeScreen = ({navigation}) => {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text>An error occurred</Text>
-        <Button title='Try again' onPress={loadCookbooks}/>
+        <Button title="Try again" onPress={loadCookbooks} />
       </View>
     );
   }
@@ -140,7 +144,7 @@ const HomeScreen = ({navigation}) => {
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal
-          data={trendRecipesList}
+          data={trendingRecipes || []}
           renderItem={({item}) => (
             <RecipeCard
               openRecipe={openRecipe}

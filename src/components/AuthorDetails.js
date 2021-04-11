@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {View, ScrollView, FlatList} from 'react-native';
-import {TouchableOpacity, Image, Text} from 'react-native';
+import {
+  View,
+  ScrollView,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  Text,
+} from 'react-native';
+import {useSelector} from 'react-redux';
 import {styles} from '../screens/HomeScreen/HomeScreen.styles';
 import {authors} from '../mocks/authors.json';
-import {recipesData} from '../mocks/recepies.json';
-import {cookbookData} from '../mocks/cookbooks.json';
 import {SmallRecipeCard} from './RecipesCards';
 import {SmallCookbookCard} from './CookbookCards';
-
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -17,6 +21,8 @@ export const AuthorDetails = ({route, navigation}) => {
   const [recipesList, setRecipesList] = useState({});
   const [cookbooksList, setCookbooksList] = useState({});
   const [selectedSection, setSelectedSection] = useState(1);
+  const cookbookData = useSelector((state) => state.cookbooksStore.cookbooks);
+  const recipesData = useSelector((state) => state.recipesStore.recipes);
 
   useEffect(() => {
     const getAuthor = authors.find((item) => item.id === id);
@@ -27,7 +33,7 @@ export const AuthorDetails = ({route, navigation}) => {
 
     const getCookbookList = cookbookData.filter((item) => item.author === id);
     getCookbookList.length && setCookbooksList(getCookbookList);
-  }, []);
+  }, [cookbookData, id]);
 
   const openRecipe = (id) => navigation.navigate('RecipeDetails', {id: id});
   const openCookbook = (id) => navigation.navigate('CookbookDetails', {id: id});
@@ -37,7 +43,7 @@ export const AuthorDetails = ({route, navigation}) => {
     <ScrollView style={(styles.mainContainer, {padding: 20})}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        style={{       
+        style={{
           flexDirection: 'row',
           alignItems: 'center',
           marginBottom: 25,

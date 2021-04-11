@@ -2,8 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {TouchableOpacity, Image, Text} from 'react-native';
 import {styles} from '../screens/HomeScreen/HomeScreen.styles';
-import FastImage from 'react-native-fast-image'
-
+import FastImage from 'react-native-fast-image';
 
 export const CookbookCard = ({
   openCookbook,
@@ -34,8 +33,6 @@ export const CookbookCard = ({
   );
 };
 
-
-
 export const SmallCookbookCard = ({
   openCookbook,
   id,
@@ -60,7 +57,7 @@ export const SmallCookbookCard = ({
         style={styles.smallRecipeImage}
       />
       <Text style={styles.cookbookTitle}>{title}</Text>
-      <Text style={styles.author}>{author.name}</Text>
+      <Text style={styles.author}>{author?.name}</Text>
     </TouchableOpacity>
   );
 };

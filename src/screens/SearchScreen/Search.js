@@ -15,16 +15,16 @@ import {
 import {SmallCookbookCard} from '../../components/CookbookCards';
 import {SmallRecipeCard} from '../../components/RecipesCards';
 
-import {recipesData, authors} from '../../mocks';
+import {authors} from '../../mocks';
 import {styles} from './Search.styles';
 import {CookbookDetails} from '../../components/CookbookDetails';
 import {clearSearch, setSearch} from '../../store/actions/cookbooks';
 
 const Search = ({navigation}) => {
-  const [recipesList, setRecipesList] = useState(recipesData);
   const [authorsList, setAuthorsList] = useState(authors);
 
   const cookbookData = useSelector((state) => state.cookbooksStore.cookbooks);
+  const recipesData = useSelector((state) => state.recipesStore.recipes);
 
   const [selectedSection, setSelectedSection] = useState(1);
 
@@ -73,7 +73,7 @@ const Search = ({navigation}) => {
             authorsList={authorsList}
           />
         ) : (
-          <RecipesList recipesList={recipesList} openRecipe={openRecipe} />
+          <RecipesList recipesList={recipesData} openRecipe={openRecipe} />
         )}
       </View>
     </ScrollView>

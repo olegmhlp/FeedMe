@@ -1,4 +1,4 @@
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const mockSuccess = (value) => {
   return new Promise((resolve) => {
@@ -52,9 +52,9 @@ export const createAccount = (email, password, shouldSucceed = true) => {
 
 export const saveCookbook = async (cookBookId, userId) => {
   try {
-    AsyncStorage.multiSet([["cookBookId", cookBookId ], ["userId", userId]])
-  } catch (error) {
-    
-  }
-
-}
+    AsyncStorage.multiSet([
+      ['cookBookId', cookBookId],
+      ['userId', userId],
+    ]);
+  } catch (error) {}
+};

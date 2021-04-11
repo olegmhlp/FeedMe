@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {styles} from './Profile.styles';
 import {authors} from '../../mocks';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {FlatList, TouchableNativeFeedback} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {SmallCookbookCard} from '../../components/CookbookCards';

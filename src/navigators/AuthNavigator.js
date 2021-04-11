@@ -1,8 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useState, useEffect} from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {ActivityIndicator, View} from 'react-native';
 
 import * as authActions from '../store/actions/auth';
@@ -38,18 +38,11 @@ const AuthNavigator = ({navigation}) => {
       }
 
       setIsLoading(false);
-      dispatch(
-        authActions.authenticate(
-          token,
-          userId,
-          userEmail,
-          userName,
-        ),
-      );
+      dispatch(authActions.authenticate(token, userId, userEmail, userName));
       navigation.navigate('ProfileScreen');
     };
     fetchToken();
-  }, [dispatch]);
+  }, [dispatch, navigation]);
 
   if (isLoading) {
     return (

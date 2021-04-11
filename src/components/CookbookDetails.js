@@ -6,7 +6,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {TouchableOpacity, Text, ScrollView} from 'react-native';
 import {styles} from '../screens/HomeScreen/HomeScreen.styles';
 
-import {recipesData} from '../mocks';
 import {SmallRecipeCard} from './RecipesCards';
 import {useSelector, useDispatch} from 'react-redux';
 import {toggleSave} from '../store/actions/cookbooks';
@@ -16,6 +15,7 @@ export const CookbookDetails = ({route, navigation}) => {
   const [cookData, setCookData] = useState({});
   const [recipesList, setRecipesList] = useState([]);
   const cookbookData = useSelector((state) => state.cookbooksStore.cookbooks);
+  const recipesData = useSelector((state) => state.recipesStore.recipes);
   const isCookbookSaved = useSelector((state) =>
     state.cookbooksStore.savedCookbooks.some((book) => book.id === id),
   );
@@ -28,11 +28,11 @@ export const CookbookDetails = ({route, navigation}) => {
   useEffect(() => {
     const getCookbook = cookbookData.find((item) => item.id === id);
     const getRecipesList = recipesData.filter((item) =>
-      getCookbook.recipes.find((i) => i === item.id),
+      getCookbook?.recipes.find((i) => i === item.id),
     );
     getRecipesList.length && setRecipesList(getRecipesList);
     getCookbook && setCookData(getCookbook);
-  }, []);
+  }, [cookbookData, id]);
 
   const openRecipe = (id) =>
     navigation.push('RecipeDetails', {id: id, author: author});

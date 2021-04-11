@@ -3,10 +3,11 @@ import {View} from 'react-native';
 import {TouchableOpacity, Image, Text} from 'react-native';
 import {styles} from '../screens/HomeScreen/HomeScreen.styles';
 
-
 export const RecipeCard = ({openRecipe, id, source, title, author, views}) => {
   return (
-    <TouchableOpacity style={styles.recipeCard} onPress={() => openRecipe(id, author)}>
+    <TouchableOpacity
+      style={styles.recipeCard}
+      onPress={() => openRecipe(id, author)}>
       <View style={styles.viewsContainer}>
         <Image
           style={{marginRight: 6, width: 16, height: 12, resizeMode: 'contain'}}
@@ -23,8 +24,6 @@ export const RecipeCard = ({openRecipe, id, source, title, author, views}) => {
     </TouchableOpacity>
   );
 };
-
-
 
 export const SmallRecipeCard = ({
   openRecipe,

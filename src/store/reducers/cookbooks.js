@@ -1,4 +1,3 @@
-// import {cookbookData} from '../../mocks';
 import {
   CLEAR_SEARCH,
   CREATE_COOKBOOK,

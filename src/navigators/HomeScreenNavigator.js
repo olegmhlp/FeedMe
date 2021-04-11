@@ -1,14 +1,13 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import { AuthorDetails, CookbookDetails, RecipeDetails } from '../components';
+import {AuthorDetails, CookbookDetails, RecipeDetails} from '../components';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
-
 
 const HomeNav = createStackNavigator();
 
 const HomeScreenNavigator = () => (
   <HomeNav.Navigator>
-    <HomeNav.Screen    
+    <HomeNav.Screen
       options={{headerShown: false}}
       name="MainPage"
       component={HomeScreen}
@@ -30,6 +29,5 @@ const HomeScreenNavigator = () => (
     />
   </HomeNav.Navigator>
 );
-
 
 export default HomeScreenNavigator;
