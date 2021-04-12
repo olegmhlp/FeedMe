@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {styles} from '../screens/HomeScreen/HomeScreen.styles';
-import {authors} from '../mocks/authors.json';
 import {SmallRecipeCard} from './RecipesCards';
 import {SmallCookbookCard} from './CookbookCards';
 
@@ -23,9 +22,10 @@ export const AuthorDetails = ({route, navigation}) => {
   const [selectedSection, setSelectedSection] = useState(1);
   const cookbookData = useSelector((state) => state.cookbooksStore.cookbooks);
   const recipesData = useSelector((state) => state.recipesStore.recipes);
+  const authorsData = useSelector((state) => state.authorsStore.authors);
 
   useEffect(() => {
-    const getAuthor = authors.find((item) => item.id === id);
+    const getAuthor = authorsData.find((item) => item.id === id);
     getAuthor && setAuthorDetails(getAuthor);
 
     const getRecipesList = recipesData.filter((item) => item.author === id);

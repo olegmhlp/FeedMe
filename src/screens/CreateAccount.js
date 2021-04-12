@@ -31,7 +31,9 @@ const CreateAccount = ({navigation}) => {
     setError(null);
     try {
       setIsLoading(true);
-      await dispatch(signup(credentials.username, credentials.email, credentials.password));
+      await dispatch(
+        signup(credentials.username, credentials.email, credentials.password),
+      );
       setIsLoading(false);
       navigation.navigate('ProfileScreen');
     } catch (err) {

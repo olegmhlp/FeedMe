@@ -11,7 +11,6 @@ import {
   RefreshControl,
   Button,
 } from 'react-native';
-import {authors} from '../../mocks';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchProducts} from '../../store/actions/cookbooks';
 import {fetchRecipes} from '../../store/actions/recipes';

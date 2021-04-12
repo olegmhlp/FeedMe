@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {TouchableOpacity, Image, Text} from 'react-native';
+import {TouchableOpacity, Text} from 'react-native';
 import {styles} from '../screens/HomeScreen/HomeScreen.styles';
 import FastImage from 'react-native-fast-image';
 

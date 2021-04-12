@@ -1,10 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  Alert,
-  ActivityIndicator,
-} from 'react-native';
+import {View, Text, Alert, ActivityIndicator} from 'react-native';
 import {TextInput, TouchableNativeFeedback} from 'react-native-gesture-handler';
 import {login} from '../store/actions/auth';
 import {useDispatch} from 'react-redux';

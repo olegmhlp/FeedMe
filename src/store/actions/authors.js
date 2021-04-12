@@ -22,7 +22,7 @@ export const fetchAuthors = () => {
         );
       }
 
-      dispatch({type: GET_AUTHORS, recipes: setAuthors});
+      dispatch({type: GET_AUTHORS, authors: setAuthors});
     } catch (error) {
       throw error;
     }

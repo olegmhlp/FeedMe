@@ -15,16 +15,14 @@ import {
 import {SmallCookbookCard} from '../../components/CookbookCards';
 import {SmallRecipeCard} from '../../components/RecipesCards';
 
-import {authors} from '../../mocks';
 import {styles} from './Search.styles';
 import {CookbookDetails} from '../../components/CookbookDetails';
 import {clearSearch, setSearch} from '../../store/actions/cookbooks';
 
 const Search = ({navigation}) => {
-  const [authorsList, setAuthorsList] = useState(authors);
-
   const cookbookData = useSelector((state) => state.cookbooksStore.cookbooks);
   const recipesData = useSelector((state) => state.recipesStore.recipes);
+  const authorsData = useSelector((state) => state.authorsStore.authors);
 
   const [selectedSection, setSelectedSection] = useState(1);
 
@@ -70,7 +68,7 @@ const Search = ({navigation}) => {
           <CookbooksList
             cookbooksList={cookbookData}
             openCookbook={openCookbook}
-            authorsList={authorsList}
+            authorsList={authorsData}
           />
         ) : (
           <RecipesList recipesList={recipesData} openRecipe={openRecipe} />
