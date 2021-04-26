@@ -154,6 +154,7 @@ export const styles = StyleSheet.create({
 
   smallCookbookCard: {
     width: '48%',
+    minWidth: '48%',
     backgroundColor: 'white',
     borderRadius: 16,
     padding: 16,

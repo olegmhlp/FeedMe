@@ -16,10 +16,13 @@ import {logout} from '../../store/actions/auth';
 const ProfileScreen = ({navigation}) => {
   const [isShown, setIsShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const savedBooks = useSelector(
+  const userDetails = useSelector((state) => state.auth);
+  const savedCookbooks = useSelector(
     (state) => state.cookbooksStore.savedCookbooks,
   );
-  const userDetails = useSelector((state) => state.auth);
+
+  const openCookbook = (cookbookId, author) =>
+    navigation.navigate('CookbookDetails', {id: cookbookId, author: author});
 
   const update = () => {
     setIsLoading(true);
@@ -55,7 +58,7 @@ const ProfileScreen = ({navigation}) => {
           <Text style={styles.email}>{userDetails.userEmail}</Text>
         </View>
       </View>
-      <View style={{marginTop: 20, marginBottom: 32}}>
+      <View style={{marginTop: 20, marginBottom: 26}}>
         <TouchableNativeFeedback
           onPress={createBook}
           style={styles.createButton}>
@@ -63,12 +66,12 @@ const ProfileScreen = ({navigation}) => {
         </TouchableNativeFeedback>
       </View>
 
-      {!savedBooks || savedBooks.length === 0 ? (
+      {!savedCookbooks || !savedCookbooks.length ? (
         <Text>You have no saved cookbooks</Text>
       ) : (
         <FlatList
-          data={savedBooks}
-          style={styles.savedBooksContainer}
+          data={savedCookbooks}
+          horizontal
           renderItem={({item}) => (
             <SmallCookbookCard
               openCookbook={null}

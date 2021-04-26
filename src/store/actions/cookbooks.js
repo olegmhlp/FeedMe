@@ -1,6 +1,6 @@
 import Cookbook from '../../models/cookbook.js';
 
-export const TOGGLE_SAVE = ' TOOGLE_SAVE';
+export const TOGGLE_SAVE_COOKBOOK = ' TOGGLE_SAVE_COOKBOOK';
 export const SET_SEARCH = 'SET_SEARCH';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export const CREATE_COOKBOOK = 'CREATE_COOKBOOK';
@@ -42,7 +42,7 @@ export const fetchCookbooks = () => {
 
 export const toggleSave = (id) => {
   return {
-    type: TOGGLE_SAVE,
+    type: TOGGLE_SAVE_COOKBOOK,
     cookbookId: id,
   };
 };

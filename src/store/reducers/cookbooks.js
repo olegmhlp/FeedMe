@@ -3,7 +3,7 @@ import {
   CREATE_COOKBOOK,
   SET_COOKBOOKS,
   SET_SEARCH,
-  TOGGLE_SAVE,
+  TOGGLE_SAVE_COOKBOOK,
 } from '../actions/cookbooks';
 
 const initialState = {
@@ -23,9 +23,10 @@ const cookbooksReducer = (state = initialState, action) => {
           .sort((a, b) => b.views - a.views)
           .slice(0, 5),
       };
-    case TOGGLE_SAVE:
+    case TOGGLE_SAVE_COOKBOOK:
+      console.log(action.cookbookId);
       const existingIndex = state.savedCookbooks.findIndex(
-        (cookbook) => cookbook.id === +action.cookbookId,
+        (cookbook) => cookbook.id === action.cookbookId,
       );
       if (existingIndex >= 0) {
         const updatedSaveCookbooks = [...state.savedCookbooks];
@@ -33,7 +34,7 @@ const cookbooksReducer = (state = initialState, action) => {
         return {...state, savedCookbooks: updatedSaveCookbooks};
       } else {
         const cookbook = state.cookbooks.find(
-          (cookbook) => cookbook.id === +action.cookbookId,
+          (cookbook) => cookbook.id === action.cookbookId,
         );
         return {
           ...state,
