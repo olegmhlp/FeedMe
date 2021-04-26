@@ -2,14 +2,14 @@ import React, {useReducer} from 'react';
 import {
   ScrollView,
   Text,
-  StyleSheet,
   View,
-  Button,
   TextInput,
   Alert,
+  TouchableOpacity,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
-import {createCookbook} from '../store/actions/cookbooks';
+import {createCookbook} from '../../store/actions/cookbooks';
+import {styles} from './CreateCookbook.styles';
 
 const REDUCER_CREATE = 'CREATE';
 
@@ -38,7 +38,7 @@ const formReducer = (state, action) => {
   return state;
 };
 
-const CreateCookbookForm = (props) => {
+const CreateCookbookForm = ({onCancel}) => {
   const dispatch = useDispatch();
 
   const [formState, dispatchReducer] = useReducer(formReducer, {
@@ -72,20 +72,15 @@ const CreateCookbookForm = (props) => {
     if (!formState.formIsValid) {
       Alert.alert('Wrong input!', 'Damn, you so stupid!', [{text: 'Okay('}]);
     } else {
-      props.onCancel();
+      onCancel();
       dispatch(createCookbook(formState.inputValues));
     }
   };
 
   return (
     <ScrollView
-      style={{marginTop: 30, marginBottom: 20, backgroundColor: '#FCFAF8'}}
-      contentContainerStyle={{
-        paddingLeft: 20,
-        paddingRight: 20,
-        flexGrow: 1,
-        justifyContent: 'flex-start',
-      }}>
+      style={{paddingTop: 30, marginBottom: 20, backgroundColor: '#FCFAF8'}}
+      contentContainerStyle={styles.contentContainer}>
       <Text style={styles.screenHeader}>Create a new cookbook</Text>
       <View style={styles.inputsContainer}>
         <Text style={styles.inputHeader}>Cookbook title</Text>
@@ -97,8 +92,9 @@ const CreateCookbookForm = (props) => {
           onChangeText={titleChangeHandler.bind(this, 'title')}
         />
 
-        {/* <Text style={styles.inputHeader}>Cookbook picture</Text>
-        <Button title="Upload" color="green" onPress={props.onCancel} /> */}
+        <TouchableOpacity style={styles.uploadButton} onPress={onCancel}>
+          <Text style={styles.appButtonText}>Upload title picture</Text>
+        </TouchableOpacity>
 
         <Text style={styles.inputHeader}>Description</Text>
         <TextInput
@@ -121,47 +117,16 @@ const CreateCookbookForm = (props) => {
           formState.inputValues.recipes.map((i) => i.title)} */}
       </View>
       <View style={styles.buttonContainer}>
-        <View style={styles.button}>
-          <Button title="CANCEL" color="red" onPress={props.onCancel} />
-        </View>
-        <View style={styles.button}>
-          <Button title="ADD" onPress={submitHandler} />
-        </View>
+        <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
+          <Text style={styles.appButtonText}>Cancel</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.saveButton} onPress={submitHandler}>
+          <Text style={styles.appButtonText}>Confirm</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
 };
 
-const styles = StyleSheet.create({
-  screenHeader: {
-    fontWeight: 'bold',
-    fontSize: 32,
-    marginBottom: 40,
-  },
-
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    width: '100%',
-  },
-  button: {
-    width: '25%',
-  },
-
-  inputsContainer: {},
-
-  input: {
-    width: '100%',
-    marginBottom: 30,
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#E1E1E1',
-    borderRadius: 10,
-  },
-
-  inputHeader: {fontSize: 18, paddingBottom: 10},
-});
-
-export default CreateCookbookForm;
+export {CreateCookbookForm};

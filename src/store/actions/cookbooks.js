@@ -6,7 +6,7 @@ export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export const CREATE_COOKBOOK = 'CREATE_COOKBOOK';
 export const SET_COOKBOOKS = 'SET_COOKBOOKS';
 
-export const fetchProducts = () => {
+export const fetchCookbooks = () => {
   return async (dispatch) => {
     try {
       const response = await fetch(

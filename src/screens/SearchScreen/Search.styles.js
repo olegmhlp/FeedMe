@@ -1,6 +1,11 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
+  searchContainer: {
+    paddingTop: 20,
+    marginBottom: 55,
+    backgroundColor: '#FCFAF8',
+  },
   mainContainer: {
     padding: 20,
     paddingTop: 40,
@@ -12,11 +17,11 @@ export const styles = StyleSheet.create({
     fontSize: 36,
     lineHeight: 36,
     paddingTop: 20,
-    paddingBottom: 10,
+    paddingBottom: 16,
   },
 
   search: {
-    marginBottom: 20,
+    marginBottom: 40,
     borderRadius: 10,
     borderColor: '#F0F0F0',
     borderWidth: 1,
@@ -41,7 +46,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 28,
     lineHeight: 36,
-    marginBottom: 15,
+    marginBottom: 24,
   },
 
   selectedText: {
@@ -146,5 +151,11 @@ export const styles = StyleSheet.create({
     margin: 15,
     borderRadius: 4,
     backgroundColor: 'white',
+  },
+
+  listContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
   },
 });

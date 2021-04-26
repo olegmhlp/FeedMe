@@ -6,8 +6,8 @@ import {useDispatch} from 'react-redux';
 import {ActivityIndicator, View} from 'react-native';
 
 import * as authActions from '../store/actions/auth';
-import LoginScreen from '../screens/Login';
-import CreateAccount from '../screens/CreateAccount';
+import LoginScreen from '../screens/Authorization/Login';
+import CreateAccount from '../screens/Authorization/CreateAccount';
 const Stack = createStackNavigator();
 
 const AuthNavigator = ({navigation}) => {

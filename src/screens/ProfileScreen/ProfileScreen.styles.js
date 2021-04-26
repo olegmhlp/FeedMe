@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   mainContainer: {
-    marginTop: 20,
+    paddingTop: 40,
     marginBottom: 40,
     backgroundColor: '#FCFAF8',
   },
@@ -65,7 +65,6 @@ export const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
   },
-
 
   recipeCard: {
     width: 300,
@@ -162,4 +161,31 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: 'white',
   },
+
+  profileAvatar: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+
+  profileContainer: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    marginLeft: 20,
+  },
+  usernameText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  email: {
+    fontSize: 16,
+    color: '#000',
+  },
+
+  buttonContainer: {position: 'absolute', bottom: 30, left: 20, right: 20},
+
+  savedBooksContainer: {flexDirection: 'row', flexWrap: 'wrap'},
 });

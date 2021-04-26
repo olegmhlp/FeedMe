@@ -2,8 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   mainContainer: {
-    marginTop: 20,
-    marginBottom: 55,
+    paddingTop: 20,
+    marginBottom: 45,
     backgroundColor: '#FCFAF8',
   },
 
@@ -11,11 +11,11 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 28,
     lineHeight: 36,
-    marginBottom: 15,
+    marginBottom: 24,
   },
 
   recipeCard: {
-    width: 300,
+    width: 264,
     height: 360,
     marginRight: 25,
     backgroundColor: 'white',
@@ -34,12 +34,12 @@ export const styles = StyleSheet.create({
 
   cookbookCard: {
     width: 250,
-    height: 310,
-    marginRight: 25,
+    height: 320,
+    marginRight: 20,
     backgroundColor: 'white',
     borderRadius: 16,
     padding: 20,
-    marginBottom: 10,
+    paddingBottom: 10,
     borderColor: '#F0F0F0',
     borderWidth: 1,
   },
@@ -47,7 +47,11 @@ export const styles = StyleSheet.create({
   viewsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 5,
+    marginBottom: 8,
+  },
+
+  viewsText: {
+    fontSize: 12,
   },
 
   cookbookImage: {
@@ -57,13 +61,13 @@ export const styles = StyleSheet.create({
   },
 
   cookbookTitle: {
-    paddingTop: 5,
+    paddingTop: 8,
     fontSize: 20,
     fontWeight: '700',
   },
 
   author: {
-    fontSize: 12,
+    fontSize: 14,
     color: '#474747',
   },
 
@@ -138,12 +142,22 @@ export const styles = StyleSheet.create({
   },
 
   smallRecipeCard: {
-    minWidth: '48%',
+    minWidth: '100%',
     height: 210,
     backgroundColor: 'white',
     borderRadius: 16,
-    padding: 15,
-    marginBottom: 15,
+    padding: 16,
+    marginBottom: 24,
+    borderColor: '#F0F0F0',
+    borderWidth: 1,
+  },
+
+  smallCookbookCard: {
+    width: '48%',
+    backgroundColor: 'white',
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 24,
     borderColor: '#F0F0F0',
     borderWidth: 1,
   },
@@ -159,5 +173,18 @@ export const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     textDecorationStyle: 'solid',
     textDecorationColor: '#F7B602',
+  },
+
+  viewsIcon: {
+    marginRight: 4,
+    width: 16,
+    height: 12,
+    resizeMode: 'contain',
+  },
+
+  cookbookViews: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 24,
   },
 });

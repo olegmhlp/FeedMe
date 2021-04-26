@@ -12,7 +12,7 @@ import {
   Button,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {fetchProducts} from '../../store/actions/cookbooks';
+import {fetchCookbooks} from '../../store/actions/cookbooks';
 import {fetchRecipes} from '../../store/actions/recipes';
 import {fetchAuthors} from '../../store/actions/authors';
 
@@ -35,18 +35,18 @@ const HomeScreen = ({navigation}) => {
   const loadCookbooks = useCallback(async () => {
     setIsLoading(true);
     try {
-      dispatch(fetchProducts());
+      dispatch(fetchCookbooks());
       dispatch(fetchRecipes());
       dispatch(fetchAuthors());
     } catch (error) {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [dispatch]);
+  }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
     loadCookbooks();
-  }, []);
+  }, [dispatch, loadCookbooks, setIsLoading]);
 
   const openCookbook = (id, author) =>
     navigation.navigate('CookbookDetails', {id: id, author: author});
@@ -70,7 +70,7 @@ const HomeScreen = ({navigation}) => {
     );
   }
 
-  if (!isLoading && popularCookbooks.length === 0) {
+  if (!isLoading && authorsList.length === 0) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text>No cookbooks found</Text>
@@ -86,7 +86,7 @@ const HomeScreen = ({navigation}) => {
       style={styles.mainContainer}
       contentContainerStyle={{flexGrow: 1}}
       showsVerticalScrollIndicator={false}>
-      <View style={{padding: 20, marginBottom: 5}}>
+      <View style={{paddingTop: 20, paddingLeft: 20, paddingBottom: 32}}>
         <Text style={styles.sectionHeader}>Most Popular Cookbooks</Text>
         <FlatList
           showsHorizontalScrollIndicator={false}
@@ -109,7 +109,7 @@ const HomeScreen = ({navigation}) => {
         />
       </View>
 
-      <View style={{padding: 20, marginBottom: 5}}>
+      <View style={{padding: 20, paddingBottom: 32}}>
         <Text style={styles.sectionHeader}>Picked By Us</Text>
         <View style={styles.pickedByUsContainer}>
           <View style={styles.largePicked}>
@@ -138,7 +138,13 @@ const HomeScreen = ({navigation}) => {
           </View>
         </View>
       </View>
-      <View style={{backgroundColor: '#F7B602', padding: 20}}>
+      <View
+        style={{
+          backgroundColor: '#F7B602',
+          paddingLeft: 20,
+          paddingBottom: 88,
+          paddingTop: 56,
+        }}>
         <Text style={styles.sectionHeader}>Trending recipes</Text>
         <FlatList
           showsHorizontalScrollIndicator={false}

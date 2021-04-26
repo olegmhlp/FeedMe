@@ -3,19 +3,22 @@ import {View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {TouchableOpacity, Text, ScrollView} from 'react-native';
-import {styles} from '../screens/HomeScreen/HomeScreen.styles';
+import {TouchableOpacity, Text, ScrollView, Image} from 'react-native';
+import {styles} from '../../screens/HomeScreen/HomeScreen.styles';
+import {buttonStyles} from '../Navigation.styles';
 
-import {SmallRecipeCard} from './RecipesCards';
+import {SmallRecipeCard} from '../index';
 import {useSelector, useDispatch} from 'react-redux';
-import {toggleSave} from '../store/actions/cookbooks';
+import {toggleSave} from '../../store/actions/cookbooks';
 
 export const CookbookDetails = ({route, navigation}) => {
   const {id, author} = route.params;
+  console.log(author);
   const [cookData, setCookData] = useState({});
   const [recipesList, setRecipesList] = useState([]);
   const cookbookData = useSelector((state) => state.cookbooksStore.cookbooks);
   const recipesData = useSelector((state) => state.recipesStore.recipes);
+  const authorsList = useSelector((state) => state.authorsStore.authors);
   const isCookbookSaved = useSelector((state) =>
     state.cookbooksStore.savedCookbooks.some((book) => book.id === id),
   );
@@ -32,34 +35,28 @@ export const CookbookDetails = ({route, navigation}) => {
     );
     getRecipesList.length && setRecipesList(getRecipesList);
     getCookbook && setCookData(getCookbook);
-  }, [cookbookData, id]);
+  }, [cookbookData, id, recipesData]);
 
   const openRecipe = (id) =>
-    navigation.push('RecipeDetails', {id: id, author: author});
-  const openAuthor = (id) => navigation.push('AuthorDetails', {id: id});
+    navigation.navigate('RecipeDetails', {id: id, author: author});
+  const openAuthor = (authorId) =>
+    navigation.navigate('AuthorDetails', {id: authorId});
 
   const {title, views, description} = cookData;
   return (
     <ScrollView
       style={styles.mainContainer}
-      contentContainerStyle={{paddingLeft: 20, paddingRight: 20, flexGrow: 1}}>
+      contentContainerStyle={{
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingBottom: 40,
+        flexGrow: 1,
+      }}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginBottom: 15,
-        }}>
-        <Ionicons name="arrow-back" size={24} color="#393939" />
-        <Text
-          style={{
-            fontSize: 24,
-            marginLeft: 10,
-            marginBottom: 3,
-            color: '#393939',
-          }}>
-          Back
-        </Text>
+        style={buttonStyles.buttonContainer}>
+        <Ionicons name="arrow-back" size={20} color="#393939" />
+        <Text style={buttonStyles.buttonText}>Back</Text>
       </TouchableOpacity>
 
       <Text style={{fontSize: 40, fontWeight: 'bold'}}>{title}</Text>
@@ -68,12 +65,12 @@ export const CookbookDetails = ({route, navigation}) => {
         style={{marginBottom: 15, marginTop: 15}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <FastImage
-            source={require('../assets/avatar.png')}
+            source={require('../../assets/avatar.png')}
             style={{width: 30, height: 30, marginRight: 8}}
           />
           <Text
             style={{
-              fontSize: 21,
+              fontSize: 18,
               color: '#F7B602',
               fontWeight: '600',
             }}>
@@ -82,7 +79,7 @@ export const CookbookDetails = ({route, navigation}) => {
         </View>
       </TouchableOpacity>
       <FastImage
-        source={require('../assets/picked1.png')}
+        source={require('../../assets/picked1.png')}
         style={{width: '100%', height: 300, borderRadius: 8}}
       />
       <View>
@@ -95,20 +92,22 @@ export const CookbookDetails = ({route, navigation}) => {
           }}>
           Description
         </Text>
-        <Text style={{fontSize: 16, lineHeight: 24, color: '#575757'}}>
+        <Text
+          style={{
+            fontSize: 16,
+            lineHeight: 24,
+            color: '#575757',
+            marginBottom: 16,
+          }}>
           {description}
         </Text>
       </View>
-      <View style={[styles.viewsContainer, {marginTop: 15, marginBottom: 30}]}>
-        <FastImage
-          style={{
-            marginRight: 10,
-            width: 22,
-            height: 16,
-          }}
-          source={require('../assets/show.png')}
+      <View style={styles.cookbookViews}>
+        <Image
+          style={styles.viewsIcon}
+          source={require('../../assets/show.png')}
         />
-        <Text style={{fontSize: 16}}>{views} views</Text>
+        <Text style={styles.viewsText}>{views} views</Text>
       </View>
 
       <TouchableOpacity
@@ -123,7 +122,7 @@ export const CookbookDetails = ({route, navigation}) => {
         </Text>
       </TouchableOpacity>
 
-      <Text style={[styles.sectionHeader, {marginTop: 30}]}>Recipes</Text>
+      <Text style={[styles.sectionHeader, {marginTop: 40}]}>Recipes</Text>
       <View style={styles.recipesList}>
         {recipesList.map((item) => {
           return (
@@ -133,7 +132,7 @@ export const CookbookDetails = ({route, navigation}) => {
               id={item.id}
               source={item.source}
               title={item.title}
-              author={item.author}
+              author={authorsList.find((i) => i.id === item.author)}
               views={item.views}
             />
           );

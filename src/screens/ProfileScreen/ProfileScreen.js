@@ -3,16 +3,14 @@ import {
   View,
   Text,
   ScrollView,
-  Button,
   Image,
   Modal,
   RefreshControl,
 } from 'react-native';
-import {styles} from './Profile.styles';
+import {styles} from './ProfileScreen.styles';
 import {FlatList, TouchableNativeFeedback} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
-import {SmallCookbookCard} from '../../components/CookbookCards';
-import CreateCookbookForm from '../../components/CreateCookbookForm';
+import {SmallCookbookCard, CreateCookbookForm} from '../../components';
 import {logout} from '../../store/actions/auth';
 
 const ProfileScreen = ({navigation}) => {
@@ -47,40 +45,22 @@ const ProfileScreen = ({navigation}) => {
       <View style={styles.searchContainer}>
         <Text style={styles.screenHeader}>My profile</Text>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          marginBottom: 20,
-        }}>
+      <View style={styles.profileAvatar}>
         <Image
           source={require('../../assets/avatar.png')}
           style={{width: 100, height: 100}}
         />
-        <View
-          style={{
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            justifyContent: 'space-between',
-            marginLeft: 20,
-          }}>
-          <Text
-            style={{
-              fontSize: 30,
-              fontWeight: 'bold',
-              color: '#000',
-            }}>
-            {userDetails.userName}
-          </Text>
-          <Text
-            style={{
-              fontSize: 16,
-              color: '#000',
-            }}>
-            {userDetails.userEmail}
-          </Text>
+        <View style={styles.profileContainer}>
+          <Text style={styles.usernameText}>{userDetails.userName}</Text>
+          <Text style={styles.email}>{userDetails.userEmail}</Text>
         </View>
+      </View>
+      <View style={{marginTop: 20, marginBottom: 32}}>
+        <TouchableNativeFeedback
+          onPress={createBook}
+          style={styles.createButton}>
+          <Text style={styles.appButtonText}>Create new cookbook</Text>
+        </TouchableNativeFeedback>
       </View>
 
       {!savedBooks || savedBooks.length === 0 ? (
@@ -88,7 +68,7 @@ const ProfileScreen = ({navigation}) => {
       ) : (
         <FlatList
           data={savedBooks}
-          style={{flexDirection: 'row', flexWrap: 'wrap'}}
+          style={styles.savedBooksContainer}
           renderItem={({item}) => (
             <SmallCookbookCard
               openCookbook={null}
@@ -103,14 +83,7 @@ const ProfileScreen = ({navigation}) => {
       <Modal visible={isShown} animationType="fade">
         <CreateCookbookForm onCancel={onCancel} />
       </Modal>
-      <View style={{marginTop: 20}}>
-        <TouchableNativeFeedback
-          onPress={createBook}
-          style={styles.createButton}>
-          <Text style={styles.appButtonText}>Create new cookbook</Text>
-        </TouchableNativeFeedback>
-      </View>
-      <View style={{position: 'absolute', bottom: 30, left: 20, right: 20}}>
+      <View style={styles.buttonContainer}>
         <TouchableNativeFeedback
           onPress={() => {
             dispatch(logout);

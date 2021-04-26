@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, Alert, ActivityIndicator} from 'react-native';
 import {TextInput, TouchableNativeFeedback} from 'react-native-gesture-handler';
-import {login} from '../store/actions/auth';
+import {login} from '../../store/actions/auth';
 import {useDispatch} from 'react-redux';
 
-import {styles} from './ProfileScreen/Profile.styles';
+import {styles} from '../ProfileScreen/ProfileScreen.styles';
 
 const LoginScreen = ({navigation}) => {
   const [error, setError] = useState();
@@ -88,6 +88,7 @@ const LoginScreen = ({navigation}) => {
         style={{
           textAlign: 'center',
           paddingTop: 13,
+          fontSize: 16,
           paddingBottom: 13,
           color: 'gray',
         }}>

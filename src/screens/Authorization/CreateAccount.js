@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, Alert, ActivityIndicator} from 'react-native';
 import {TextInput, TouchableNativeFeedback} from 'react-native-gesture-handler';
-import {signup} from '../store/actions/auth';
+import {signup} from '../../store/actions/auth';
 import {useDispatch} from 'react-redux';
 
-import {styles} from './ProfileScreen/Profile.styles';
+import {styles} from '../ProfileScreen/ProfileScreen.styles';
 
 const CreateAccount = ({navigation}) => {
   const [error, setError] = useState();
@@ -100,6 +100,7 @@ const CreateAccount = ({navigation}) => {
       <Text
         style={{
           textAlign: 'center',
+          fontSize: 16,
           paddingTop: 13,
           paddingBottom: 13,
           color: 'gray',

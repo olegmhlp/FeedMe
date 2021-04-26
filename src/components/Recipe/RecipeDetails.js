@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {View, TouchableOpacity, Image, Text, ScrollView} from 'react-native';
-import {styles} from '../screens/HomeScreen/HomeScreen.styles';
+import {styles} from '../../screens/HomeScreen/HomeScreen.styles';
+import {buttonStyles} from '../Navigation.styles';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 
 export const RecipeDetails = ({route, navigation}) => {
   const {id, author} = route.params;
+  console.log(author);
   const [recipesList, setRecipesList] = useState({});
 
   const recipesData = useSelector((state) => state.recipesStore.recipes);
@@ -22,24 +24,17 @@ export const RecipeDetails = ({route, navigation}) => {
   return (
     <ScrollView
       style={styles.mainContainer}
-      contentContainerStyle={{flexGrow: 1, paddingLeft: 20, paddingRight: 20}}>
+      contentContainerStyle={{
+        flexGrow: 1,
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingBottom: 40,
+      }}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginBottom: 15,
-        }}>
-        <Ionicons name="arrow-back" size={24} color="#393939" />
-        <Text
-          style={{
-            fontSize: 24,
-            marginLeft: 10,
-            marginBottom: 3,
-            color: '#393939',
-          }}>
-          Back
-        </Text>
+        style={buttonStyles.buttonContainer}>
+        <Ionicons name="arrow-back" size={20} color="#393939" />
+        <Text style={buttonStyles.buttonText}>Back</Text>
       </TouchableOpacity>
       <Text style={{fontSize: 40, fontWeight: 'bold'}}>{title}</Text>
       <TouchableOpacity
@@ -47,21 +42,21 @@ export const RecipeDetails = ({route, navigation}) => {
         style={{marginBottom: 15, marginTop: 15}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
-            source={require('../assets/avatar.png')}
-            style={{width: 33, height: 33, marginRight: 5}}
+            source={require('../../assets/avatar.png')}
+            style={{width: 33, height: 33, marginRight: 8}}
           />
           <Text
             style={{
-              fontSize: 21,
+              fontSize: 18,
               color: '#F7B602',
               fontWeight: '600',
             }}>
-            {author.name}
+            {author?.name}
           </Text>
         </View>
       </TouchableOpacity>
       <Image
-        source={require('../assets/recipe1.png')}
+        source={require('../../assets/recipe1.png')}
         style={{width: '100%', height: 300, borderRadius: 8}}
       />
       <View>
@@ -74,21 +69,22 @@ export const RecipeDetails = ({route, navigation}) => {
           }}>
           Description
         </Text>
-        <Text style={{fontSize: 16, lineHeight: 24, color: '#575757'}}>
+        <Text
+          style={{
+            fontSize: 16,
+            lineHeight: 24,
+            paddingBottom: 16,
+            color: '#575757',
+          }}>
           {description}
         </Text>
       </View>
-      <View style={[styles.viewsContainer, {marginTop: 15, marginBottom: 30}]}>
+      <View style={styles.cookbookViews}>
         <Image
-          style={{
-            marginRight: 10,
-            width: 22,
-            height: 16,
-            resizeMode: 'contain',
-          }}
-          source={require('../assets/show.png')}
+          style={styles.viewsIcon}
+          source={require('../../assets/show.png')}
         />
-        <Text style={{fontSize: 16}}>{views} views</Text>
+        <Text style={styles.viewsText}>{views} views</Text>
       </View>
 
       <View>

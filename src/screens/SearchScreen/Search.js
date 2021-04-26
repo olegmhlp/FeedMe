@@ -12,11 +12,13 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import {SmallCookbookCard} from '../../components/CookbookCards';
-import {SmallRecipeCard} from '../../components/RecipesCards';
+import {
+  SmallCookbookCard,
+  SmallRecipeCard,
+  CookbookDetails,
+} from '../../components';
 
 import {styles} from './Search.styles';
-import {CookbookDetails} from '../../components/CookbookDetails';
 import {clearSearch, setSearch} from '../../store/actions/cookbooks';
 
 const Search = ({navigation}) => {
@@ -26,15 +28,16 @@ const Search = ({navigation}) => {
 
   const [selectedSection, setSelectedSection] = useState(1);
 
-  const openRecipe = (id) => navigation.navigate('RecipeDetails', {id: id});
+  const openRecipe = (id, author) =>
+    navigation.navigate('RecipeDetails', {id, author});
   const openCookbook = (id, author) =>
-    navigation.navigate('CookbookDetails', {id: id, author: author});
+    navigation.navigate('CookbookDetails', {id, author});
 
   return (
     <ScrollView
       stickyHeaderIndices={[1]}
       showsVerticalScrollIndicator={false}
-      style={{marginBottom: 20, marginTop: 20, backgroundColor: '#FCFAF8'}}
+      style={styles.searchContainer}
       contentContainerStyle={{flexGrow: 1, paddingLeft: 20, paddingRight: 20}}>
       <Text style={styles.screenHeader}>Search</Text>
       <TextInput
@@ -71,7 +74,11 @@ const Search = ({navigation}) => {
             authorsList={authorsData}
           />
         ) : (
-          <RecipesList recipesList={recipesData} openRecipe={openRecipe} />
+          <RecipesList
+            recipesList={recipesData}
+            openRecipe={openRecipe}
+            authorsList={authorsData}
+          />
         )}
       </View>
     </ScrollView>
@@ -79,12 +86,7 @@ const Search = ({navigation}) => {
 };
 
 const CookbooksList = ({cookbooksList, openCookbook, authorsList}) => (
-  <View
-    style={{
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
-    }}>
+  <View style={styles.listContainer}>
     {cookbooksList.map((item) => (
       <SmallCookbookCard
         key={item.id}
@@ -99,13 +101,8 @@ const CookbooksList = ({cookbooksList, openCookbook, authorsList}) => (
   </View>
 );
 
-const RecipesList = ({recipesList, openRecipe}) => (
-  <View
-    style={{
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
-    }}>
+const RecipesList = ({recipesList, openRecipe, authorsList}) => (
+  <View style={styles.listContainer}>
     {recipesList.map((item) => (
       <SmallRecipeCard
         key={item.id}
@@ -113,7 +110,7 @@ const RecipesList = ({recipesList, openRecipe}) => (
         id={item.id}
         source={item.source}
         title={item.title}
-        author={item.author}
+        author={authorsList.find((i) => i.id === item.author)}
         views={item.views}
       />
     ))}
