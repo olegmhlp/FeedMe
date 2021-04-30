@@ -39,7 +39,7 @@ export const AuthorDetails = ({route, navigation}) => {
   const openRecipe = (id) =>
     navigation.navigate('RecipeDetails', {id: id, author: authorDetails});
   const openCookbook = (id) => navigation.navigate('CookbookDetails', {id: id});
-  const {name, email, description} = authorDetails;
+  const {name, email, description, avatar} = authorDetails;
 
   return (
     <ScrollView style={(styles.mainContainer, {padding: 20})}>
@@ -51,8 +51,8 @@ export const AuthorDetails = ({route, navigation}) => {
       </TouchableOpacity>
       <View style={authorStyles.container}>
         <Image
-          source={require('../../assets/avatar.png')}
-          style={{width: 100, height: 100}}
+          source={{uri: avatar}}
+          style={{width: 100, height: 100, borderRadius: 300}}
         />
         <View style={authorStyles.infoContainer}>
           <Text style={authorStyles.name}>{name}</Text>

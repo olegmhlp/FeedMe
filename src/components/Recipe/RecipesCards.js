@@ -15,10 +15,7 @@ export const RecipeCard = ({openRecipe, id, source, title, author, views}) => {
         />
         <Text style={styles.viewsText}>{views} views</Text>
       </View>
-      <Image
-        source={require('../../assets/recipe1.png')}
-        style={styles.recipeImage}
-      />
+      <Image source={{uri: source}} style={styles.recipeImage} />
       <Text style={styles.cookbookTitle}>{title}</Text>
       <Text style={styles.author}>{author.name}</Text>
     </TouchableOpacity>
@@ -44,10 +41,7 @@ export const SmallRecipeCard = ({
         />
         <Text style={styles.viewsText}>{views} views</Text>
       </View>
-      <Image
-        source={require('../../assets/recipe1.png')}
-        style={styles.smallRecipeImage}
-      />
+      <Image source={{uri: source}} style={styles.smallRecipeImage} />
       <Text style={styles.cookbookTitle}>{title}</Text>
       {author.name && <Text style={styles.author}>{author.name}</Text>}
     </TouchableOpacity>

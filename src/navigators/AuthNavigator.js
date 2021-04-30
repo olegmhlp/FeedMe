@@ -29,7 +29,6 @@ const AuthNavigator = ({navigation}) => {
         userName,
         expirationDate,
       } = transformedAuth;
-      console.log(token);
       const expireDate = new Date(expirationDate);
       if (expireDate <= new Date() || !token || !userId) {
         navigation.navigate('LoginScreen');

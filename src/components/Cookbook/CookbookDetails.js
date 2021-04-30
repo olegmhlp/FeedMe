@@ -13,7 +13,6 @@ import {toggleSave} from '../../store/actions/cookbooks';
 
 export const CookbookDetails = ({route, navigation}) => {
   const {id, author} = route.params;
-  console.log(author);
   const [cookData, setCookData] = useState({});
   const [recipesList, setRecipesList] = useState([]);
   const cookbookData = useSelector((state) => state.cookbooksStore.cookbooks);
@@ -42,7 +41,7 @@ export const CookbookDetails = ({route, navigation}) => {
   const openAuthor = (authorId) =>
     navigation.navigate('AuthorDetails', {id: authorId});
 
-  const {title, views, description} = cookData;
+  const {title, views, description, source} = cookData;
   return (
     <ScrollView
       style={styles.mainContainer}
@@ -65,8 +64,8 @@ export const CookbookDetails = ({route, navigation}) => {
         style={{marginBottom: 15, marginTop: 15}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <FastImage
-            source={require('../../assets/avatar.png')}
-            style={{width: 30, height: 30, marginRight: 8}}
+            source={{uri: author.avatar}}
+            style={{width: 30, height: 30, marginRight: 8, borderRadius: 300}}
           />
           <Text
             style={{
@@ -79,7 +78,7 @@ export const CookbookDetails = ({route, navigation}) => {
         </View>
       </TouchableOpacity>
       <FastImage
-        source={require('../../assets/picked1.png')}
+        source={{uri: source}}
         style={{width: '100%', height: 300, borderRadius: 8}}
       />
       <View>

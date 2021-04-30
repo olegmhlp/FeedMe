@@ -57,7 +57,6 @@ export const styles = StyleSheet.create({
   input: {
     width: '100%',
     marginBottom: 32,
-    textAlignVertical: 'top',
     paddingHorizontal: 15,
     paddingVertical: 8,
     backgroundColor: '#FFFFFF',

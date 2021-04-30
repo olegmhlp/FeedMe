@@ -31,6 +31,7 @@ export const fetchRecipes = () => {
             resData[key].directions,
             resData[key].ingredients,
             resData[key].description,
+            resData[key].source,
           ),
         );
       }
@@ -61,8 +62,6 @@ export const createRecipe = ({title, directions, ingredients, description}) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const userId = getState().auth.userId;
-    console.log(token);
-    console.log(userId);
     const response = await fetch(
       `https://rn-learn-d3ad2.firebaseio.com/recipes.json?auth=${token}`,
       {

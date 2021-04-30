@@ -8,7 +8,6 @@ import {useSelector} from 'react-redux';
 
 export const RecipeDetails = ({route, navigation}) => {
   const {id, author} = route.params;
-  console.log(author);
   const [recipesList, setRecipesList] = useState({});
 
   const recipesData = useSelector((state) => state.recipesStore.recipes);
@@ -17,7 +16,14 @@ export const RecipeDetails = ({route, navigation}) => {
     getRecipe && setRecipesList(getRecipe);
   }, [id]);
 
-  const {title, views, description, directions, ingredients} = recipesList;
+  const {
+    title,
+    views,
+    description,
+    directions,
+    ingredients,
+    source,
+  } = recipesList;
 
   const openAuthor = (id) => navigation.navigate('AuthorDetails', {id: id});
 
@@ -42,8 +48,8 @@ export const RecipeDetails = ({route, navigation}) => {
         style={{marginBottom: 15, marginTop: 15}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
-            source={require('../../assets/avatar.png')}
-            style={{width: 33, height: 33, marginRight: 8}}
+            source={{uri: author.avatar}}
+            style={{width: 30, height: 30, marginRight: 8, borderRadius: 300}}
           />
           <Text
             style={{
@@ -56,7 +62,7 @@ export const RecipeDetails = ({route, navigation}) => {
         </View>
       </TouchableOpacity>
       <Image
-        source={require('../../assets/recipe1.png')}
+        source={{uri: source}}
         style={{width: '100%', height: 300, borderRadius: 8}}
       />
       <View>

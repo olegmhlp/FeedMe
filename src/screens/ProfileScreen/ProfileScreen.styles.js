@@ -185,5 +185,7 @@ export const styles = StyleSheet.create({
     color: '#000',
   },
 
+  cardContainer: {paddingBottom: 50, minWidth: 160},
+
   buttonContainer: {position: 'absolute', bottom: 20, left: 20, right: 20},
 });

@@ -18,7 +18,12 @@ export const fetchAuthors = () => {
 
       for (const key in resData) {
         setAuthors.push(
-          new Author(key, resData[key].name, resData[key].description),
+          new Author(
+            key,
+            resData[key].name,
+            resData[key].description,
+            resData[key].avatar,
+          ),
         );
       }
 

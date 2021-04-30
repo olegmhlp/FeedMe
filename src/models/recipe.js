@@ -8,6 +8,7 @@ class Recipe {
     directions,
     ingredients,
     description,
+    source,
   ) {
     this.id = id;
     this.title = title;
@@ -17,6 +18,7 @@ class Recipe {
     this.directions = directions;
     this.ingredients = ingredients;
     this.description = description;
+    this.source = source;
   }
 }
 

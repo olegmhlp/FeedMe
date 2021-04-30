@@ -21,8 +21,10 @@ const ProfileScreen = ({navigation}) => {
     (state) => state.cookbooksStore.savedCookbooks,
   );
 
-  const openCookbook = (cookbookId, author) =>
-    navigation.navigate('CookbookDetails', {id: cookbookId, author: author});
+  const authorsList = useSelector((state) => state.authorsStore.authors);
+
+  const openCookbook = (id, author) =>
+    navigation.navigate('CookbookDetails', {id, author});
 
   const update = () => {
     setIsLoading(true);
@@ -58,7 +60,7 @@ const ProfileScreen = ({navigation}) => {
           <Text style={styles.email}>{userDetails.userEmail}</Text>
         </View>
       </View>
-      <View style={{marginTop: 20, marginBottom: 26}}>
+      <View style={{marginTop: 20, marginBottom: 16}}>
         <TouchableNativeFeedback
           onPress={createBook}
           style={styles.createButton}>
@@ -73,13 +75,16 @@ const ProfileScreen = ({navigation}) => {
           data={savedCookbooks}
           horizontal
           renderItem={({item}) => (
-            <SmallCookbookCard
-              openCookbook={null}
-              id={item.id}
-              title={item.title}
-              author={item.author}
-              views={item.views}
-            />
+            <View style={styles.cardContainer}>
+              <SmallCookbookCard
+                openCookbook={openCookbook}
+                id={item.id}
+                title={item.title}
+                source={item.source}
+                author={authorsList.find((i) => i.id === item.author)}
+                views={item.views}
+              />
+            </View>
           )}
         />
       )}

@@ -24,7 +24,6 @@ const cookbooksReducer = (state = initialState, action) => {
           .slice(0, 5),
       };
     case TOGGLE_SAVE_COOKBOOK:
-      console.log(action.cookbookId);
       const existingIndex = state.savedCookbooks.findIndex(
         (cookbook) => cookbook.id === action.cookbookId,
       );
