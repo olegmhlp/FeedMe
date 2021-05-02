@@ -62,18 +62,10 @@ const HomeScreen = ({navigation}) => {
     );
   }
 
-  if (isLoading) {
+  if (authorsList.length === 0) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <ActivityIndicator size="large" color="#F7B602" />
-      </View>
-    );
-  }
-
-  if (!isLoading && authorsList.length === 0) {
-    return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>No cookbooks found</Text>
       </View>
     );
   }

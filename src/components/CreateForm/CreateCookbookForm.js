@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useReducer, useState, useEffect} from 'react';
 import {
   ScrollView,
   Text,
@@ -7,6 +7,7 @@ import {
   Alert,
   Image,
   TouchableOpacity,
+  Animated,
 } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import {useDispatch} from 'react-redux';
@@ -44,6 +45,7 @@ const formReducer = (state, action) => {
 const CreateCookbookForm = ({onCancel}) => {
   const dispatch = useDispatch();
   const [imageSource, setImageSource] = useState();
+  const [animationProps, setAnimations] = useState(new Animated.Value(1000));
   const [formState, dispatchReducer] = useReducer(formReducer, {
     inputValues: {
       title: '',
@@ -58,6 +60,14 @@ const CreateCookbookForm = ({onCancel}) => {
     },
     formIsValid: false,
   });
+
+  useEffect(() => {
+    Animated.timing(animationProps, {
+      toValue: 0,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   const titleChangeHandler = (inputId, text) => {
     let isValid = false;
@@ -123,8 +133,13 @@ const CreateCookbookForm = ({onCancel}) => {
   };
 
   return (
-    <ScrollView
-      style={{paddingTop: 30, marginBottom: 20, backgroundColor: '#FCFAF8'}}
+    <Animated.ScrollView
+      style={{
+        paddingTop: 30,
+        marginBottom: 20,
+        backgroundColor: '#FCFAF8',
+        transform: [{translateY: animationProps}],
+      }}
       contentContainerStyle={styles.contentContainer}>
       <Text style={styles.screenHeader}>Create a new cookbook</Text>
       <View style={styles.inputsContainer}>
@@ -169,12 +184,11 @@ const CreateCookbookForm = ({onCancel}) => {
           style={styles.input}
           onChangeText={titleChangeHandler.bind(this, 'recipes')}
         />
-        {/* {formState.inputValues.recipes &&
-          formState.inputValues.recipes !== 0 &&
-          formState.inputValues.recipes.map((i) => i.title)} */}
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
+        <TouchableOpacity
+          style={styles.cancelButton}
+          onPress={() => onCancel(animationProps)}>
           <Text style={styles.appButtonText}>Cancel</Text>
         </TouchableOpacity>
 
@@ -182,7 +196,7 @@ const CreateCookbookForm = ({onCancel}) => {
           <Text style={styles.appButtonText}>Confirm</Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+    </Animated.ScrollView>
   );
 };
 

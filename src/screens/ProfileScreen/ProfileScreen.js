@@ -6,6 +6,7 @@ import {
   Image,
   Modal,
   RefreshControl,
+  Animated,
 } from 'react-native';
 import {styles} from './ProfileScreen.styles';
 import {FlatList, TouchableNativeFeedback} from 'react-native-gesture-handler';
@@ -35,8 +36,12 @@ const ProfileScreen = ({navigation}) => {
     setIsShow(true);
   };
 
-  const onCancel = () => {
-    setIsShow(false);
+  const onCancel = (animationProps) => {
+    Animated.timing(animationProps, {
+      toValue: 1000,
+      duration: 250,
+      useNativeDriver: true,
+    }).start(() => setIsShow(false));
   };
 
   const dispatch = useDispatch();
